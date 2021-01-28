@@ -1,0 +1,7 @@
+server:
+  port: 9090
+
+conductor:
+  server:
+    startup:
+      enabled: true
