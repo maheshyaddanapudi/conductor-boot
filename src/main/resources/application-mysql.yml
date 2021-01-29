@@ -1,0 +1,14 @@
+MYSQL_DATABASE_HOST: localhost
+MYSQL_DATABASE_PORT: 3306
+MYSQL_DATABASE: conductor
+MYSQL_USER: conductor
+MYSQL_PASSWORD: conductor
+
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_DATABASE_HOST}:${MYSQL_DATABASE_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+wrapper_db: mysql
+db: mysql
