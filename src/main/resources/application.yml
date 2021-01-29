@@ -2,4 +2,5 @@ spring:
   profiles:
     active:
       - basic
+      - mariadb4j
       - conductor

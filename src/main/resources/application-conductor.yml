@@ -5,5 +5,15 @@ conductor:
   jetty:
     server:
       port: 1987
+  mysql:
+    connection:
+      timeout: 18000000
+      idle:
+        timeout: 31536000
+      pool:
+        idle:
+          min: 2
+        size:
+          max: 10000
   additional:
     modules: com.netflix.conductor.contribs.ArchivingWorkflowModule

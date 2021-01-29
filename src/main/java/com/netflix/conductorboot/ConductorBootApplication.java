@@ -8,14 +8,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
 import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import com.netflix.conductor.bootstrap.Main;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {RestClientAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {
+		RestClientAutoConfiguration.class,
+		FlywayAutoConfiguration.class,
+		DataSourceAutoConfiguration.class,
+		CassandraAutoConfiguration.class
+})
 public class ConductorBootApplication {
 
 	private final Logger logger = LoggerFactory.getLogger(ConductorBootApplication.class.getSimpleName());

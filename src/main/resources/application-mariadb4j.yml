@@ -1,0 +1,29 @@
+MYSQL_DATABASE: conductor
+MYSQL_USER: conductor
+MYSQL_PASSWORD: conductor
+
+spring:
+  datasource:
+    name: ${MYSQL_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+wrapper_db: mariadb4j
+
+mariadb4j:
+  #dataDir: ${spring.application.name}-data
+  #libDir: ${spring.application.name}-lib
+  #baseDir: ${spring.application.name}-base
+  maxConnections: 100000
+  wait:
+    timeout: 18000000
+  connect:
+    timeout: 31536000
+  deleteBaseAndDataDirOnShutdown: false
+  security:
+    disabled: true
+
+flyway:
+  validate-on-migrate: false
+  baseline-on-migrate: false
+  ignore-missing-migrations: true
