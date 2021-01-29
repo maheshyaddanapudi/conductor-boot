@@ -2,5 +2,5 @@ spring:
   profiles:
     active:
       - basic
-      - mariadb4j
+      - mysql
       - conductor
