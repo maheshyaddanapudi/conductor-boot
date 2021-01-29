@@ -1,0 +1,9 @@
+conductor:
+  server:
+    startup:
+      enabled: true
+  jetty:
+    server:
+      port: 1987
+  additional:
+    modules: com.netflix.conductor.contribs.ArchivingWorkflowModule

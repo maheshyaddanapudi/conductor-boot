@@ -1,7 +1,5 @@
-server:
-  port: 9090
-
-conductor:
-  server:
-    startup:
-      enabled: true
+spring:
+  profiles:
+    active:
+      - basic
+      - conductor
