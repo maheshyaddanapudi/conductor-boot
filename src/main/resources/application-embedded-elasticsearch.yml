@@ -1,0 +1,39 @@
+ELASTICSEARCH_HOST: localhost
+ELASTICSEARCH_PORT: 9200
+
+elasticsearch:
+  resource:
+    binary:
+      path: embedded/resources/elasticsearch-${elasticsearch.version}
+      name: elasticsearch-${elasticsearch.version}.zip
+  type: SPRING_BOOT_EMBEDDED
+  version: 5.5.2
+  dir: embedded/persistence
+  startup:
+    time-out: 60
+  http:
+    port: ${ELASTICSEARCH_PORT}
+  tcp:
+    port: 9300
+  cleanInstallationDirectoryOnStop: false
+
+workflow:
+  elasticsearch:
+    cluster:
+      health:
+        color: yellow
+    version: 5
+    instanceType: EXTERNAL
+    url: http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
+    index:
+      name: conductor
+    tasklog:
+      index:
+        name: task_log
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      elasticsearch:
+        enabled: true
