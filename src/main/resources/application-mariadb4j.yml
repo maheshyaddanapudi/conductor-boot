@@ -12,8 +12,8 @@ wrapper_db: mariadb4j
 
 mariadb4j:
   #dataDir: embedded/persistence/mariadb4j/data
-  #libDir: embedded/resources/mariadb4j/lib
-  #baseDir: embedded/resources/mariadb4j/base
+  #libDir: embedded/persistence/mariadb4j/lib
+  #baseDir: embedded/persistence/mariadb4j/base
   port: 0
   maxConnections: 100000
   wait:
