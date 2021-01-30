@@ -2,6 +2,6 @@ spring:
   profiles:
     active:
       - basic
-      - embedded-elasticsearch
+      - external-elasticsearch
       - mysql
       - conductor
