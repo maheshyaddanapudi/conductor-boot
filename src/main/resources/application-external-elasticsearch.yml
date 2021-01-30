@@ -1,0 +1,23 @@
+ELASTICSEARCH_HOST: localhost
+ELASTICSEARCH_PORT: 9200
+
+elasticsearch:
+  type: EXTERNAL
+
+workflow:
+  elasticsearch:
+    cluster:
+      health:
+        color: yellow
+    version: 5
+    instanceType: EXTERNAL
+    index:
+      name: conductor
+    tasklog:
+      index:
+        name: task_log
+
+management:
+  health:
+    elasticsearch:
+      enabled: true
