@@ -2,10 +2,10 @@ package com.netflix.conductorboot.config.db;
 
 import javax.sql.DataSource;
 
+import com.netflix.conductorboot.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +14,10 @@ import org.springframework.context.annotation.DependsOn;
 import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
-@ConditionalOnProperty(
-	    value="wrapper_db", 
-	    havingValue = "mariadb4j", 
-	    matchIfMissing = false)
+@Profile(Constants.MARIADB4J)
 public class EmbeddedMariaDbConfig {
 
 	private final Logger logger = LoggerFactory.getLogger(EmbeddedMariaDbConfig.class.getSimpleName());
@@ -60,12 +58,12 @@ public class EmbeddedMariaDbConfig {
 
 		logger.info("Setting MariaDB4JSpringService configuration arguments.");
     	
-    	mariaDB4jSpringService.getConfiguration().addArg("--max-connections="+maxConnections);
-    	mariaDB4jSpringService.getConfiguration().addArg("--wait-timeout="+waitTimeout);
-    	mariaDB4jSpringService.getConfiguration().addArg("--connect-timeout="+connectTimeout);
+    	mariaDB4jSpringService.getConfiguration().addArg(Constants.MARIADB_ARGS_MAX_CONNECTIONS + maxConnections);
+    	mariaDB4jSpringService.getConfiguration().addArg(Constants.MARIADB_ARGS_WAIT_TIMEOUT + waitTimeout);
+    	mariaDB4jSpringService.getConfiguration().addArg(Constants.MARIADB_ARGS_CONNECT_TIMEOUT + connectTimeout);
     	
     	
-    	if(null == mariadb4jDataDir || "NONE".equalsIgnoreCase(mariadb4jDataDir))
+    	if(null == mariadb4jDataDir || Constants.NONE.equalsIgnoreCase(mariadb4jDataDir))
     		logger.error("Captured Data Directory as Empty !");
     	else
 		{
@@ -82,19 +80,19 @@ public class EmbeddedMariaDbConfig {
     		mariaDB4jSpringService.setDefaultPort(mariadb4jPort);
     	}
     	
-    	if(null != mariadb4jDataDir && !"NONE".equalsIgnoreCase(mariadb4jDataDir))
+    	if(null != mariadb4jDataDir && !Constants.NONE.equalsIgnoreCase(mariadb4jDataDir))
     	{
 			logger.info("Setting MariaDB4JSpringService data dir to "+mariadb4jDataDir);
     		mariaDB4jSpringService.setDefaultDataDir(mariadb4jDataDir);
     	}
     	
-    	if(null != mariadb4jLibDir && !"NONE".equalsIgnoreCase(mariadb4jLibDir))
+    	if(null != mariadb4jLibDir && !Constants.NONE.equalsIgnoreCase(mariadb4jLibDir))
     	{
 			logger.info("Setting MariaDB4JSpringService lib dir to "+mariadb4jLibDir);
     		mariaDB4jSpringService.setDefaultLibDir(mariadb4jLibDir);
     	}
     	
-    	if(null != mariadb4jBaseDir && !"NONE".equalsIgnoreCase(mariadb4jBaseDir))
+    	if(null != mariadb4jBaseDir && !Constants.NONE.equalsIgnoreCase(mariadb4jBaseDir))
     	{
 			logger.info("Setting MariaDB4JSpringService base dir to "+mariadb4jBaseDir);
     		mariaDB4jSpringService.setDefaultBaseDir(mariadb4jBaseDir);
@@ -110,22 +108,23 @@ public class EmbeddedMariaDbConfig {
                           @Value("${spring.datasource.username:conductor}") String datasourceUsername,
                           @Value("${spring.datasource.password:conductor}") String datasourcePassword,
                           @Value("${spring.datasource.driver-class-name:org.mariadb.jdbc.Driver}") String datasourceDriver) throws ManagedProcessException {
-        //Create our database with default root user and no password
+
+    	//Create our database with default root user and no password
         mariaDB4jSpringService.getDB().createDB(databaseName);
 
         DBConfigurationBuilder config = mariaDB4jSpringService.getConfiguration();
 
-        String databaseUrl = config.getURL(databaseName)+"?autoReconnect=true";
+        String databaseUrl = config.getURL(databaseName) + Constants.MARIADB_URL_EXTN_AUTO_RECONNECT;
 
 		logger.info("Setting Database details as System Properties");
 	    
-        System.setProperty("db", "mysql");
-	    System.setProperty("jdbc.url", databaseUrl);
-	    System.setProperty("jdbc.username", datasourceUsername);
-	    System.setProperty("jdbc.password", datasourcePassword);
-	    System.setProperty("flyway.validate-on-migrate", "false");
-	    System.setProperty("flyway.baseline-on-migrate", "false");
-	    System.setProperty("flyway.ignore-missing-migrations", "true");
+        System.setProperty(Constants.DB, Constants.MYSQL);
+	    System.setProperty(Constants.JDBC_URL, databaseUrl);
+	    System.setProperty(Constants.JDBC_USERNAME, datasourceUsername);
+	    System.setProperty(Constants.JDBC_PASSWORD, datasourcePassword);
+	    System.setProperty(Constants.FLYWAY_VALIDATE_ON_MIGRATE, Constants.FALSE);
+	    System.setProperty(Constants.FLYWAY_BASELINE_ON_MIGRATE, Constants.FALSE);
+	    System.setProperty(Constants.FLYWAY_IGNORE_MISSING_MIGRATIONS, Constants.TRUE);
 
 		logger.info("Building Embedded MariaDB Datasource.");
 	    

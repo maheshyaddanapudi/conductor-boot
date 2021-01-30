@@ -1,5 +1,11 @@
 server:
-  port: 9090
+  port: 8080
+
+elasticsearch:
+  dir: embedded-test/persistence
+  startup:
+    enabled: false
+  cleanInstallationDirectoryOnStop: true
 
 conductor:
   server:
