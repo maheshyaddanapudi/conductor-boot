@@ -17,3 +17,45 @@ conductor:
           max: 10000
   additional:
     modules: com.netflix.conductor.contribs.ArchivingWorkflowModule
+
+zuul:
+  routes:
+    conductor-index:
+      path: /
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+    conductor-html:
+      path: /index.html
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false
+    conductor-swagger-json:
+      path: /api/swagger.json
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false
+    conductor-swagger-images:
+      path: /images/**
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false
+    conductor-swagger-lib:
+      path: /lib/**
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false
+    conductor-swagger-css:
+      path: /css/**
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false
+    conductor-swagger-js:
+      path: /swagger-ui.js
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false
+    conductor-api:
+      path: /api/**
+      url: http://localhost:${conductor.jetty.server.port}
+      retryable: true
+      strip-prefix: false

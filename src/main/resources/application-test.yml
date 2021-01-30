@@ -11,3 +11,32 @@ conductor:
   server:
     startup:
       enabled: false
+
+logging:
+  level:
+    root: INFO
+    org.zalando.logbook: TRACE
+
+logbook:
+  filter:
+    enabled: true
+  write:
+    level: INFO
+  format:
+    style: splunk
+  exclude: [/, /actuator/**, /v3/api-docs/**, /swagger-ui/**, /index.html, /images/**, /swagger-ui.js, /lib/**, /css/**, /api/swagger.json]
+  strategy: body-only-if-status-at-least
+  minimum-status: 400
+  obfuscate:
+    headers:
+      - Authorization
+    parameters:
+      - access_token
+      - password
+
+zuul:
+  add-proxy-headers: true
+  add-host-header: true
+  ssl-hostname-validation-enabled: false
+  sensitive-headers:
+    - Authorization
