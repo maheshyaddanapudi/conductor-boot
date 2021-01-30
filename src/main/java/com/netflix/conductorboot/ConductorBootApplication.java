@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import com.netflix.conductor.bootstrap.Main;
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 
 @SpringBootApplication
+@EnableZuulProxy
 @EnableAutoConfiguration(exclude = {
 		RestClientAutoConfiguration.class,
 		FlywayAutoConfiguration.class,
