@@ -2,10 +2,20 @@ server:
   port: 8080
 
 spring:
+  liquibase:
+    enabled: false
   application:
     name: Conductor Boot Wrapper
 
 awaitTermination: 120
+
+# Deprecated
+security:
+  basic:
+    enabled: false
+
+oauth:
+  security: NONE
 
 logging:
   level:

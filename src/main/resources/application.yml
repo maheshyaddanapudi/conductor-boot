@@ -2,6 +2,10 @@ spring:
   profiles:
     active:
       - basic
-      - embedded-elasticsearch
-      - mariadb4j
+      - external-elasticsearch
+      - mysql
       - conductor
+      - embedded-oauth2
+      - security
+# For embedded-oauth2 - database is required, hence mariadb4j or mysql profiles also need to be enabled
+# For embedded-oauth2, external-oauth2, external-adfs - "security" profile also has to be enabled

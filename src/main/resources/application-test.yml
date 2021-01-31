@@ -1,6 +1,19 @@
 server:
   port: 8080
 
+spring:
+  flyway:
+    enabled: false
+  liquibase:
+    enabled: false
+  application:
+    name: Conductor Boot Wrapper
+
+awaitTermination: 120
+
+oauth:
+  security: NONE
+
 elasticsearch:
   dir: embedded-test/persistence
   startup:

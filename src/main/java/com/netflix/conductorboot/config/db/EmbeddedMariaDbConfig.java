@@ -22,7 +22,7 @@ public class EmbeddedMariaDbConfig {
 
 	private final Logger logger = LoggerFactory.getLogger(EmbeddedMariaDbConfig.class.getSimpleName());
 	
-	@Value("${mariadb4j.maxConnections:10000}")
+	@Value("${mariadb4j.maxConnections:100}")
 	public String maxConnections;
 	
 	@Value("${mariadb4j.port:0}")
@@ -123,7 +123,7 @@ public class EmbeddedMariaDbConfig {
 	    System.setProperty(Constants.JDBC_USERNAME, datasourceUsername);
 	    System.setProperty(Constants.JDBC_PASSWORD, datasourcePassword);
 	    System.setProperty(Constants.FLYWAY_VALIDATE_ON_MIGRATE, Constants.FALSE);
-	    System.setProperty(Constants.FLYWAY_BASELINE_ON_MIGRATE, Constants.FALSE);
+	    System.setProperty(Constants.FLYWAY_BASELINE_ON_MIGRATE, Constants.TRUE);
 	    System.setProperty(Constants.FLYWAY_IGNORE_MISSING_MIGRATIONS, Constants.TRUE);
 
 		logger.info("Building Embedded MariaDB Datasource.");

@@ -3,19 +3,20 @@ package com.netflix.conductorboot;
 import com.netflix.conductorboot.config.env.EnvironmentVariablesToSystemPropertiesMappingConfiguration;
 import com.netflix.conductorboot.constants.Constants;
 import com.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
-import com.netflix.conductorboot.lib.embedded.elastic.PopularProperties;
-import com.netflix.conductorboot.service.embedded.elastic.EmbeddedElasticService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
 import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -25,18 +26,22 @@ import com.netflix.conductor.bootstrap.Main;
 import com.netflix.conductorboot.config.env.GracefulShutdown;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.File;
 import java.io.IOException;
 
 @SpringBootApplication
 @EnableZuulProxy
+@CrossOrigin("*")
 @EnableAutoConfiguration(exclude = {
 		RestClientAutoConfiguration.class,
-		FlywayAutoConfiguration.class,
 		DataSourceAutoConfiguration.class,
-		CassandraAutoConfiguration.class
+		CassandraAutoConfiguration.class,
+		SecurityAutoConfiguration.class,
+		ManagementWebSecurityAutoConfiguration.class,
+		UserDetailsServiceAutoConfiguration.class,
+		FlywayAutoConfiguration.class
 })
 public class ConductorBootApplication {
 

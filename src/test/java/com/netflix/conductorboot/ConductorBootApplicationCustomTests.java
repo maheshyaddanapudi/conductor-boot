@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles(profiles = {Constants.TEST, Constants.MARIADB4J, Constants.EMBEDDED_ELASTICSEARCH})
+@ActiveProfiles(profiles = {Constants.TEST, Constants.MARIADB4J, Constants.EMBEDDED_ELASTICSEARCH, Constants.EMBEDDED_OAUTH2, Constants.SECURITY})
 public class ConductorBootApplicationCustomTests {
 
     @Test
