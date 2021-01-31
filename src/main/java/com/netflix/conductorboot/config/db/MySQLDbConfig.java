@@ -29,7 +29,7 @@ public class MySQLDbConfig {
 		System.setProperty(Constants.JDBC_USERNAME, datasourceUsername);
 		System.setProperty(Constants.JDBC_PASSWORD, datasourcePassword);
 		System.setProperty(Constants.FLYWAY_VALIDATE_ON_MIGRATE, Constants.FALSE);
-		System.setProperty(Constants.FLYWAY_BASELINE_ON_MIGRATE, Constants.FALSE);
+		System.setProperty(Constants.FLYWAY_BASELINE_ON_MIGRATE, Constants.TRUE);
 		System.setProperty(Constants.FLYWAY_IGNORE_MISSING_MIGRATIONS, Constants.TRUE);
 
 		logger.info("JDBC MYSQL Properties are SET for CONDUCTOR");

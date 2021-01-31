@@ -1,0 +1,134 @@
+security:
+  oauth2:
+    resource:
+      mapping: |
+        [
+          {
+            "endpoint": "/oauth/admin/**",
+            "http_methods": [
+            "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ],
+            "roles": [
+              "role_oauth_super_admin"
+            ]
+          },
+          {
+            "endpoint": "/oauth/client/**",
+            "http_methods": [
+            "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ],
+            "roles": [
+              "role_oauth_client_admin"
+            ]
+          },
+          {
+            "endpoint": "/oauth/user/**",
+            "http_methods": [
+            "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ],
+            "roles": [
+              "role_oauth_super_admin", "role_oauth_client_admin", "role_conductor_super_manager", "role_conductor_super_viewer", "role_conductor_core_manager", "role_conductor_core_viewer", "role_conductor_execution_manager", "role_conductor_execution_viewer", "role_conductor_event_manager", "role_conductor_event_viewer", "role_conductor_metadata_manager", "role_conductor_metadata_viewer", "role_conductor_workflow_manager", "role_conductor_workflow_viewer", "role_conductor_task_manager", "role_conductor_task_viewer"
+            ]
+          },
+          {
+            "endpoint": "/oauth/user/principal",
+            "http_methods": [
+              "GET"
+            ],
+            "roles": [
+              "role_oauth_super_admin", "role_oauth_client_admin", "role_conductor_super_manager", "role_conductor_super_viewer", "role_conductor_core_manager", "role_conductor_core_viewer", "role_conductor_execution_manager", "role_conductor_execution_viewer", "role_conductor_event_manager", "role_conductor_event_viewer", "role_conductor_metadata_manager", "role_conductor_metadata_viewer", "role_conductor_workflow_manager", "role_conductor_workflow_viewer", "role_conductor_task_manager", "role_conductor_task_viewer"
+            ]
+          },
+          {
+            "endpoint": "/api/event/**",
+            "http_methods": [
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_core_manager", "role_conductor_execution_manager", "role_conductor_event_manager"
+            ]
+          },
+          {
+            "endpoint": "/api/event/**",
+            "http_methods": [
+              "GET"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_super_manager", "role_conductor_super_viewer","role_conductor_core_manager", "role_conductor_execution_manager", "role_conductor_event_manager", "role_conductor_core_viewer", "role_conductor_execution_viewer", "role_conductor_event_viewer"
+            ]
+          },
+          {
+            "endpoint": "/api/workflow/**",
+            "http_methods": [
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_core_manager", "role_conductor_execution_manager", "role_conductor_workflow_manager"
+            ]
+          },
+          {
+            "endpoint": "/api/workflow/**",
+            "http_methods": [
+              "GET"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_super_viewer","role_conductor_core_manager", "role_conductor_execution_manager", "role_conductor_workflow_manager", "role_conductor_core_viewer", "role_conductor_execution_viewer", "role_conductor_workflow_viewer"
+            ]
+          },
+          {
+            "endpoint": "/api/tasks/**",
+            "http_methods": [
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_core_manager", "role_conductor_execution_manager", "role_conductor_task_manager"
+            ]
+          },
+          {
+            "endpoint": "/api/tasks/**",
+            "http_methods": [
+              "GET"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_super_viewer","role_conductor_core_manager", "role_conductor_execution_manager", "role_conductor_task_manager", "role_conductor_core_viewer", "role_conductor_execution_viewer", "role_conductor_task_viewer"
+            ]
+          },
+          {
+            "endpoint": "/api/metadata/**",
+            "http_methods": [
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_core_manager", "role_conductor_metadata_manager"
+            ]
+          },
+          {
+            "endpoint": "/api/metadata/**",
+            "http_methods": [
+              "GET"
+            ],
+            "roles": [
+              "role_conductor_super_manager", "role_conductor_super_viewer","role_conductor_core_manager", "role_conductor_metadata_manager", "role_conductor_core_viewer", "role_conductor_metadata_viewer"
+            ]
+          }
+        ]

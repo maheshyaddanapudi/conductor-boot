@@ -8,6 +8,7 @@ public class Constants {
     public static final String TRUE= "true";
     public static final String TEST = "test";
     public static final String STRING_INITIALIZR = "";
+    public static final String COMMA = ",";
 
     // Embedded Elasticsearch Constants
     public static final String EMBEDDED_ELASTICSEARCH = "embedded-elasticsearch";
@@ -29,6 +30,14 @@ public class Constants {
     public static final String JDBC_PASSWORD = "jdbc.password";
 
     public static final String FLYWAY_VALIDATE_ON_MIGRATE = "flyway.validate-on-migrate";
-    public static final String FLYWAY_BASELINE_ON_MIGRATE = "flyway.baseline-on-migrate";
+    public static final String FLYWAY_BASELINE_ON_MIGRATE = "flyway.baselineOnMigrate";
     public static final String FLYWAY_IGNORE_MISSING_MIGRATIONS = "flyway.ignore-missing-migrations";
+
+    // Embedded OAuth2 Constants
+    public static final String EMBEDDED_OAUTH2 = "embedded-oauth2";
+    public static final String SECURITY = "security";
+
+    public static final String resourceIds = "USER_ADMIN_RESOURCE";
+    public static final String authorizedGrantTypes = "authorization_code,password,refresh_token,implicit";
+    public static final String OAUTH_SECUIRTY = "oauth.security";
 }
