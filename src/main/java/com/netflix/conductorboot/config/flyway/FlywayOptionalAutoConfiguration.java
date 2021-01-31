@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile(value = {Constants.MYSQL, Constants.MARIADB4J})
+@Profile(value = {Constants.CONDUCTOR})
 public class FlywayOptionalAutoConfiguration {
 
     @Autowired

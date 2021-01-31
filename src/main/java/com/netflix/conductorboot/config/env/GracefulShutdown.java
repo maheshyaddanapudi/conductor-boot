@@ -39,7 +39,18 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
 
 	@Override
 	public void onApplicationEvent(ContextClosedEvent event) {
-		this.connector.pause();
+
+		try{
+			this.connector.pause();
+		}
+		catch(NullPointerException npe)
+		{
+			// Do Nothing
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 		if(null!=this.embeddedElastic)
 		{
@@ -54,20 +65,32 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
 			this.mariaDB4jSpringService.stop();
 			log.info("$$$ Embedded MariaDB Shutdown Status : "+!this.mariaDB4jSpringService.isRunning()+" $$$");
 		}
-		
-		
-		Executor executor = this.connector.getProtocolHandler().getExecutor();
-		if (executor instanceof ThreadPoolExecutor) {
-			try {
-				ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
-				threadPoolExecutor.shutdown();
-				if (!threadPoolExecutor.awaitTermination(awaitTermination, TimeUnit.SECONDS)) {
-					log.warn("Conductor Boot thread pool did not shut down gracefully within " + awaitTermination
-							+ " seconds. Proceeding with forceful shutdown");
+
+		try{
+			Executor executor = this.connector.getProtocolHandler().getExecutor();
+			if (executor instanceof ThreadPoolExecutor) {
+				try {
+					ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
+					threadPoolExecutor.shutdown();
+					if (!threadPoolExecutor.awaitTermination(awaitTermination, TimeUnit.SECONDS)) {
+						log.warn("Conductor Boot thread pool did not shut down gracefully within " + awaitTermination
+								+ " seconds. Proceeding with forceful shutdown");
+					}
+				} catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				} catch(NullPointerException npe)
+				{
+
 				}
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
 			}
+		}
+		catch(NullPointerException npe)
+		{
+			// Do Nothing
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 }

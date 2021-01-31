@@ -9,6 +9,7 @@ public class Constants {
     public static final String TEST = "test";
     public static final String STRING_INITIALIZR = "";
     public static final String COMMA = ",";
+    public static final String CONDUCTOR = "conductor";
 
     // Embedded Elasticsearch Constants
     public static final String EMBEDDED_ELASTICSEARCH = "embedded-elasticsearch";
@@ -40,4 +41,8 @@ public class Constants {
     public static final String resourceIds = "USER_ADMIN_RESOURCE";
     public static final String authorizedGrantTypes = "authorization_code,password,refresh_token,implicit";
     public static final String OAUTH_SECUIRTY = "oauth.security";
+
+    public static final String EXTERNAL_OAUTH2 = "external-oauth2";
+    public static final String EXTERNAL_ADFS = "external-adfs";
+    public static final String OPTIONS = "OPTIONS";
 }

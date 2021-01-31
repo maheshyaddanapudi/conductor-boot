@@ -1,0 +1,7 @@
+oauth:
+  security: EXTERNAL
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: https://POPULATE_EXTERNAL_OAUTH2_HOST/oauth/token
