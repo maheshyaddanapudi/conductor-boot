@@ -8,7 +8,7 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.github.my.netflix</groupId>
+	<groupId>com.github.maheshyaddanapudi.netflix</groupId>
 	<artifactId>conductor-boot</artifactId>
 	<version>${conductor.version}</version>
 	<name>conductor-boot</name>
