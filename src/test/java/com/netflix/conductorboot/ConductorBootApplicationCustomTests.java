@@ -1,5 +1,6 @@
 package com.netflix.conductorboot;
 
+import com.netflix.conductorboot.config.flyway.FlywayOptionalAutoConfiguration;
 import com.netflix.conductorboot.constants.Constants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner;
         SecurityAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class,
         UserDetailsServiceAutoConfiguration.class,
-        FlywayAutoConfiguration.class
+        FlywayAutoConfiguration.class,
+        FlywayOptionalAutoConfiguration.class
 })
 @ActiveProfiles(profiles = {Constants.TEST, Constants.MARIADB4J, Constants.EMBEDDED_ELASTICSEARCH, Constants.EMBEDDED_OAUTH2, Constants.SECURITY})
 public class ConductorBootApplicationCustomTests {
