@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @Profile(value = {Constants.CONDUCTOR})
+
 public class FlywayOptionalAutoConfiguration {
 
     @Autowired
