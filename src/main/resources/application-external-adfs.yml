@@ -1,0 +1,15 @@
+oauth:
+  security: ADFS
+
+security:
+  oauth2:
+    client:
+      clientId: POPULATE_CLIENT_ID
+      userAuthorizationUri: https://POPULATE_ADFS_HOST/adfs/oauth2/authorize?resource=POPULATE_RESOURCE
+      accessTokenUri: https://POPULATE_ADFS_HOST/adfs/oauth2/token
+      tokenName: code
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+      grant-type: authorization_code
+    resource:
+      userInfoUri: https://POPULATE_ADFS_HOST/adfs/oauth2/token
