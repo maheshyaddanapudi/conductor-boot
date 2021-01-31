@@ -2,8 +2,8 @@ spring:
   profiles:
     active:
       - basic
-      - external-elasticsearch
-      - mysql
+      - embedded-elasticsearch
+      - mariadb4j
       - conductor
       - embedded-oauth2
       - security
