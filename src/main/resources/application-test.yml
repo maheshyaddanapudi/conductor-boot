@@ -9,6 +9,9 @@ spring:
   application:
     name: Conductor Boot Wrapper
 
+flyway:
+  enabled: false
+
 awaitTermination: 120
 
 oauth:

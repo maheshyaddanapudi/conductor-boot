@@ -1,6 +1,5 @@
 package com.netflix.conductorboot;
 
-import com.netflix.conductorboot.config.flyway.FlywayOptionalAutoConfiguration;
 import com.netflix.conductorboot.constants.Constants;
 import org.junit.Test;
 import org.junit.runner.RunWith;

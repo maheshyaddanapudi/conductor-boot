@@ -1,6 +1,3 @@
-flyway:
-  enabled: true
-
 conductor:
   server:
     startup:

@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty( name = "flyway.enabled", havingValue = "true")
 @Profile(Constants.CONDUCTOR)
 public class FlywayOptionalAutoConfiguration {
 
@@ -18,7 +17,8 @@ public class FlywayOptionalAutoConfiguration {
     DataSource dataSource;
 
     @Bean(initMethod = "migrate")
-    Flyway flyway() {
+    @Profile(Constants.CONDUCTOR)
+    public Flyway flyway() {
         Flyway flyway = new Flyway();
         flyway.setValidateOnMigrate(false);
         flyway.setBaselineVersionAsString("0");
