@@ -1,9 +1,10 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.apache.commons.io.FileUtils.forceMkdir;
-import static org.apache.commons.io.FileUtils.getFile;
-import static org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS;
+import org.apache.commons.io.FileUtils;
+import org.rauschig.jarchivelib.Archiver;
+import org.rauschig.jarchivelib.ArchiverFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,11 +17,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.io.FileUtils;
-import org.rauschig.jarchivelib.Archiver;
-import org.rauschig.jarchivelib.ArchiverFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.apache.commons.io.FileUtils.forceMkdir;
+import static org.apache.commons.io.FileUtils.getFile;
+import static org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS;
 
 class ElasticSearchInstaller {
 

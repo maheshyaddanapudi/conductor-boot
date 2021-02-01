@@ -1,14 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.utils.embedded.resource.server;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.JwtAccessTokenConverterConfigurer;
 import org.springframework.context.annotation.Profile;
@@ -23,6 +14,8 @@ import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.stereotype.Component;
+
+import java.util.*;
 
 @Component
 @Profile(Constants.EMBEDDED_OAUTH2)

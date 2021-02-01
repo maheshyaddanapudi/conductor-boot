@@ -10,14 +10,13 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile(Constants.CONDUCTOR)
+@Profile(value = {Constants.MARIADB4J, Constants.MYSQL})
 public class FlywayOptionalAutoConfiguration {
 
     @Autowired
     DataSource dataSource;
 
     @Bean(initMethod = "migrate")
-    @Profile(Constants.CONDUCTOR)
     public Flyway flyway() {
         Flyway flyway = new Flyway();
         flyway.setValidateOnMigrate(false);

@@ -1,8 +1,6 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic;
 
-import static com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.Require.require;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.stream.Collectors.toList;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,15 +8,12 @@ import java.io.InputStream;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.IOUtils;
+import static com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.Require.require;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.stream.Collectors.toList;
 
 public final class EmbeddedElastic {
 

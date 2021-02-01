@@ -1,8 +1,10 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot;
 
 import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.EnvironmentVariablesToSystemPropertiesMappingConfiguration;
-import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
+import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.GracefulShutdown;
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
+import com.netflix.conductor.bootstrap.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
-import com.netflix.conductor.bootstrap.Main;
-import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.GracefulShutdown;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.File;
@@ -62,8 +62,8 @@ public class ConductorBootApplication {
 	@Value("${elasticsearch.type:EMBEDDED}")
 	public String ELASTICSEARCH_TYPE;
 
-	@Value("${elasticsearch.dir:embedded/persistence}")
-	public String ELASTICSEARCH_DIR;
+	@Value("${ELASTICSEARCH_DATA_DIR:embedded/persistence}")
+	public String ELASTICSEARCH_DATA_DIR;
 
 	@Autowired(required = false)
 	public EmbeddedElastic embeddedElastic;
@@ -81,8 +81,8 @@ public class ConductorBootApplication {
 	@EventListener(ApplicationStartedEvent.class)
 	public void mapEnvToProp()
 	{
-		if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR)){
-			File elasticsearchInstallation = new File(ELASTICSEARCH_DIR+"/elasticsearch-"+ELASTICSEARCH_VERSION);
+		if(null!=ELASTICSEARCH_DATA_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DATA_DIR)){
+			File elasticsearchInstallation = new File(ELASTICSEARCH_DATA_DIR+"/elasticsearch-"+ELASTICSEARCH_VERSION);
 			this.elasticsearchInstallationExists = elasticsearchInstallation.exists();
 		}
 		this.environmentVariablesToSystemPropertiesMappingConfiguration.mapEnvToProp();

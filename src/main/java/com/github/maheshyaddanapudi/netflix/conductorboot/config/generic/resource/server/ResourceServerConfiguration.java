@@ -1,11 +1,8 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.generic.resource.server;
 
-import java.util.Arrays;
-
-import javax.servlet.http.HttpServletResponse;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.resource.server.ResourceRoleMappingDTO;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-import com.google.gson.Gson;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 @Configuration
 @Profile({Constants.EMBEDDED_OAUTH2, Constants.EXTERNAL_ADFS})

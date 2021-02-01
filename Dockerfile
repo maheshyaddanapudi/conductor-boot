@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 MAINTAINER zzzmahesh@gmail.com
 
@@ -29,8 +29,8 @@ WORKDIR /
 USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
-RUN apt-get -y update --ignore-missing --fix-missing \
-  && apt-get -y install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openjdk-8-jdk openssl libncurses5-dev maven
+RUN apt-get -y -qq update --ignore-missing --fix-missing \
+  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5-dev openjdk-8-jdk maven
 
 # Setting JAVA_HOME for performing Maven build.
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64

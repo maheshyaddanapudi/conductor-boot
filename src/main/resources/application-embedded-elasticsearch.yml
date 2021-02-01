@@ -2,9 +2,9 @@ ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
 
 # Use embedded/persistence to have a common persistence location for all embedded components.
-ELASTICSEARCH_DIR: NONE
+ELASTICSEARCH_DATA_DIR: NONE
 
-# Use embedded/resources to have a common persistence location for all embedded components.
+# Use embedded/resources to have a common resources location for all embedded components.
 ELASTICSEARCH_RESOURCE_DIR: NONE
 
 elasticsearch:
@@ -14,7 +14,7 @@ elasticsearch:
     binary:
       path: ${ELASTICSEARCH_RESOURCE_DIR}/elasticsearch-${elasticsearch.version}
       name: elasticsearch-${elasticsearch.version}.zip
-  dir: ${ELASTICSEARCH_DIR}
+  dir: ${ELASTICSEARCH_DATA_DIR}
   startup:
     time-out: 60
   http:

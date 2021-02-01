@@ -1,7 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.embedded.oauth2;
 
-import javax.sql.DataSource;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +20,8 @@ import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpointAuthenticationFilter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 @Configuration
 @Profile(Constants.EMBEDDED_OAUTH2)

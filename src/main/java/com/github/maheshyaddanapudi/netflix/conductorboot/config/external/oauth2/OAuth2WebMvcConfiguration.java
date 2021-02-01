@@ -1,8 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.external.oauth2;
 
-import java.security.Principal;
-import java.util.List;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +12,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.security.Principal;
+import java.util.List;
 
 @Configuration
 @Profile(Constants.EXTERNAL_OAUTH2)

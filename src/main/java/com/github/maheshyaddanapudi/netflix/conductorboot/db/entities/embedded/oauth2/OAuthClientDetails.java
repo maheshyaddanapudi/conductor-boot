@@ -3,18 +3,8 @@ package com.github.maheshyaddanapudi.netflix.conductorboot.db.entities.embedded.
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.springframework.context.annotation.Profile;
 
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="oauth_client_details")

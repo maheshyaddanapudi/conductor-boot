@@ -1,8 +1,8 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.external.oauth2;
 
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.resource.server.ResourceRoleMappingDTO;
 import com.google.gson.Gson;
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

@@ -4,12 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.slf4j.Logger;
@@ -24,11 +19,11 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import static com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.HttpStatusCodes.OK;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
-import static com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.HttpStatusCodes.OK;
 
 class ElasticRestClient {
 

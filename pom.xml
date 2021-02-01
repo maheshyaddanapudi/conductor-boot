@@ -13,6 +13,7 @@
 	<version>${conductor.version}</version>
 	<name>conductor-boot</name>
 	<description>Spring Boot Wrapper of Netflix Conductor Server</description>
+	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -146,6 +147,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<executable>true</executable>
 					<requiresUnpack>
 						<depedency>
 							<groupId>com.netflix.conductor</groupId>

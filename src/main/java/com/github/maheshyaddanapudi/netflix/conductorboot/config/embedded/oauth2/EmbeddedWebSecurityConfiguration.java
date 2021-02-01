@@ -1,7 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.embedded.oauth2;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @Order(1000)

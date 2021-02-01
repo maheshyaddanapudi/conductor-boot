@@ -1,7 +1,8 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.embedded.db;
 
-import javax.sql.DataSource;
-
+import ch.vorburger.exec.ManagedProcessException;
+import ch.vorburger.mariadb4j.DBConfigurationBuilder;
+import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +11,9 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-
-import ch.vorburger.exec.ManagedProcessException;
-import ch.vorburger.mariadb4j.DBConfigurationBuilder;
-import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 import org.springframework.context.annotation.Profile;
+
+import javax.sql.DataSource;
 
 @Configuration
 @Profile(Constants.MARIADB4J)

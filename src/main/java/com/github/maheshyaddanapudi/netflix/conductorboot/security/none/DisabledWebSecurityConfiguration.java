@@ -1,13 +1,13 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.security.none;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity

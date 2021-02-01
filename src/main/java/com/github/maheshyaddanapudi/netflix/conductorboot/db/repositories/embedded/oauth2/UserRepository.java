@@ -1,7 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.db.repositories.embedded.oauth2;
 
-import javax.transaction.Transactional;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.db.entities.embedded.oauth2.User;
 import org.springframework.context.annotation.Profile;
@@ -9,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
 
 @Profile(Constants.EMBEDDED_OAUTH2)
 @Repository

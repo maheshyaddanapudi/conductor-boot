@@ -36,10 +36,10 @@ public class EmbeddedElasticsearchConfig {
     @Value("${elasticsearch.tcp.port:9300}")
     public int ELASTICSEARCH_TCP_PORT;
 
-    @Value("${elasticsearch.dir:embedded/persistence}")
-    public String ELASTICSEARCH_DIR;
+    @Value("${ELASTICSEARCH_DATA_DIR:embedded/persistence}")
+    public String ELASTICSEARCH_DATA_DIR;
 
-    @Value("$ELASTICSEARCH_RESOURCE_DIR:embedded/resources}")
+    @Value("${ELASTICSEARCH_RESOURCE_DIR:embedded/resources}")
     public String ELASTICSEARCH_RESOURCE_DIR;
 
     @Value("${elasticsearch.cleanInstallationDirectoryOnStop:false}")
@@ -63,8 +63,12 @@ public class EmbeddedElasticsearchConfig {
     @Bean
     public EmbeddedElastic embeddedElastic() throws IOException {
 
-        if(null!=ELASTICSEARCH_RESOURCE_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_RESOURCE_DIR)){
-            Path path = Paths.get(new ClassPathResource(ELASTICSEARCH_RESOURCE_BINARY_PATH).getPath());
+        boolean resourceFileExists = false;
+        String resourceFilePath = Constants.STRING_INITIALIZR;
+
+        if(null!=ELASTICSEARCH_RESOURCE_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_RESOURCE_DIR))
+        {
+            Path path = Paths.get(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsolutePath());
 
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
@@ -78,15 +82,21 @@ public class EmbeddedElasticsearchConfig {
 
             logger.info("Obtaining Elasticsearch Resource from ClassPathResource : " + ELASTICSEARCH_RESOURCE_BINARY_NAME);
 
-            if(elasticsearchResourceFile.exists())
-            {
-                logger.info("Found ClassPathResource : "+ELASTICSEARCH_RESOURCE_BINARY_NAME+ " and File URL is : "+"file:///"+elasticsearchResourceFile.getAbsolutePath());
+            resourceFileExists = elasticsearchResourceFile.exists();
+            resourceFilePath = elasticsearchResourceFile.getAbsolutePath();
+        }
 
-                if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR))
+
+        if(null!=ELASTICSEARCH_RESOURCE_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_RESOURCE_DIR)){
+            if(resourceFileExists)
+            {
+                logger.info("Found ClassPathResource : "+ELASTICSEARCH_RESOURCE_BINARY_NAME+ " and File URL is : "+"file:///"+resourceFilePath);
+
+                if(null!=ELASTICSEARCH_DATA_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DATA_DIR))
                 {
                     EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-                            .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
-                            .withDownloadUrl(new URL("file:///"+elasticsearchResourceFile.getAbsolutePath()))
+                            .withInstallationDirectory(new File(ELASTICSEARCH_DATA_DIR))
+                            .withDownloadUrl(new URL("file:///"+resourceFilePath))
                             .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
                             .withElasticVersion(ELASTICSEARCH_VERSION)
                             .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
@@ -106,7 +116,7 @@ public class EmbeddedElasticsearchConfig {
                 else
                 {
                     EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-                            .withDownloadUrl(new URL("file:///"+elasticsearchResourceFile.getAbsolutePath()))
+                            .withDownloadUrl(new URL("file:///"+resourceFilePath))
                             .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
                             .withElasticVersion(ELASTICSEARCH_VERSION)
                             .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
@@ -128,10 +138,10 @@ public class EmbeddedElasticsearchConfig {
             else {
                 logger.warn("ClassPathResource Not Found !!!");
 
-                if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR))
+                if(null!=ELASTICSEARCH_DATA_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DATA_DIR))
                 {
                     EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-                            .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
+                            .withInstallationDirectory(new File(ELASTICSEARCH_DATA_DIR))
                             .withDownloadDirectory(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsoluteFile())
                             .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
                             .withElasticVersion(ELASTICSEARCH_VERSION)
@@ -149,7 +159,7 @@ public class EmbeddedElasticsearchConfig {
 
                     return embeddedElastic;
                 }
-                else{
+                else {
                     EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
                             .withDownloadDirectory(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsoluteFile())
                             .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
@@ -169,12 +179,15 @@ public class EmbeddedElasticsearchConfig {
                     return embeddedElastic;
                 }
             }
-        }else{
+        }
+        else
+        {
             logger.warn("ClassPathResource Not Found !!!");
 
-            if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR)){
+            if(null!=ELASTICSEARCH_DATA_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DATA_DIR))
+            {
                 EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-                        .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
+                        .withInstallationDirectory(new File(ELASTICSEARCH_DATA_DIR))
                         .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
                         .withElasticVersion(ELASTICSEARCH_VERSION)
                         .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
@@ -191,7 +204,7 @@ public class EmbeddedElasticsearchConfig {
 
                 return embeddedElastic;
             }
-            else{
+            else {
                 EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
                         .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
                         .withElasticVersion(ELASTICSEARCH_VERSION)

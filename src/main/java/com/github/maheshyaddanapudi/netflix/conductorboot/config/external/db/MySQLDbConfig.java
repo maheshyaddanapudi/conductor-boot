@@ -1,7 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.external.db;
 
-import javax.sql.DataSource;
-
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +8,8 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
+import javax.sql.DataSource;
 
 @Configuration
 @Profile(Constants.MYSQL)

@@ -1,9 +1,6 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.env;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
+import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
 import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
@@ -14,7 +11,9 @@ import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 
-import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationListener<ContextClosedEvent> {
 	

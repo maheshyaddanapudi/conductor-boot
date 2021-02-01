@@ -2,9 +2,9 @@ package com.github.maheshyaddanapudi.netflix.conductorboot.service.external.adfs
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.external.adfs.ADFSToken;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
