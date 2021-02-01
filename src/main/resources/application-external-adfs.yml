@@ -1,15 +1,19 @@
+ADFS_CLIENT_ID: POPULATE_CLIENT_ID
+ENV ADFS_RESOURCE: POPULATE_ADFS_RESOURCE
+ENV ADFS_HOST: POPULATE_ADFS_HOST
+
 oauth:
   security: ADFS
 
 security:
   oauth2:
     client:
-      clientId: POPULATE_CLIENT_ID
-      userAuthorizationUri: https://POPULATE_ADFS_HOST/adfs/oauth2/authorize?resource=POPULATE_RESOURCE
-      accessTokenUri: https://POPULATE_ADFS_HOST/adfs/oauth2/token
+      clientId: $ADFS_CLIENT_ID
+      userAuthorizationUri: https://$ADFS_HOST/adfs/oauth2/authorize?resource=$ADFS_RESOURCE
+      accessTokenUri: https://$ADFS_HOST/adfs/oauth2/token
       tokenName: code
       authenticationScheme: query
       clientAuthenticationScheme: form
       grant-type: authorization_code
     resource:
-      userInfoUri: https://POPULATE_ADFS_HOST/adfs/oauth2/token
+      userInfoUri: https://$ADFS_HOST/adfs/oauth2/token

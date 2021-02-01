@@ -12,9 +12,9 @@ wrapper_db: mariadb4j
 
 # If dataDir, libDir & baseDir are not set, then the database will not be persistent.
 mariadb4j:
-  #dataDir: embedded/persistence/mariadb4j/data
-  #libDir: embedded/persistence/mariadb4j/lib
-  #baseDir: embedded/persistence/mariadb4j/base
+  dataDir: embedded/persistence/mariadb4j/data
+  libDir: embedded/persistence/mariadb4j/lib
+  baseDir: embedded/persistence/mariadb4j/base
   port: 0
   maxConnections: 100000
   wait:
