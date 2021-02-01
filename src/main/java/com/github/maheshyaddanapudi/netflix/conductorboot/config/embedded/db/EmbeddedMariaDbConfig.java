@@ -28,7 +28,7 @@ public class EmbeddedMariaDbConfig {
 	@Value("${mariadb4j.port:0}")
 	public int mariadb4jPort;
 
-	@Value("${MARIADB4J_DIR: NONE}")
+	@Value("${MARIADB4J_DIR:embedded/persistence/mariadb4j}")
 	public String MARIADB4J_DIR;
 	
 	@Value("${mariadb4j.dataDir:NONE}")
@@ -83,19 +83,19 @@ public class EmbeddedMariaDbConfig {
     		mariaDB4jSpringService.setDefaultPort(mariadb4jPort);
     	}
     	
-    	if( (null == MARIADB4J_DIR || Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jDataDir && !Constants.NONE.equalsIgnoreCase(mariadb4jDataDir)) )
+    	if( (null != MARIADB4J_DIR && !Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jDataDir && !Constants.NONE.equalsIgnoreCase(mariadb4jDataDir)) )
     	{
 			logger.info("Setting MariaDB4JSpringService data dir to "+mariadb4jDataDir);
     		mariaDB4jSpringService.setDefaultDataDir(mariadb4jDataDir);
     	}
     	
-    	if(null != mariadb4jLibDir && !Constants.NONE.equalsIgnoreCase(mariadb4jLibDir))
+    	if( (null != MARIADB4J_DIR && !Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jLibDir && !Constants.NONE.equalsIgnoreCase(mariadb4jLibDir)) )
     	{
 			logger.info("Setting MariaDB4JSpringService lib dir to "+mariadb4jLibDir);
     		mariaDB4jSpringService.setDefaultLibDir(mariadb4jLibDir);
     	}
     	
-    	if( (null == MARIADB4J_DIR || Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jBaseDir && !Constants.NONE.equalsIgnoreCase(mariadb4jBaseDir)) )
+    	if( (null != MARIADB4J_DIR && !Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jBaseDir && !Constants.NONE.equalsIgnoreCase(mariadb4jBaseDir)) )
     	{
 			logger.info("Setting MariaDB4JSpringService base dir to "+mariadb4jBaseDir);
     		mariaDB4jSpringService.setDefaultBaseDir(mariadb4jBaseDir);

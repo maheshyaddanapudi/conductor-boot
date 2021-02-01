@@ -1,7 +1,11 @@
 ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
-ELASTICSEARCH_DIR: embedded/persistence
-ELASTICSEARCH_RESOURCE_DIR: embedded/resources
+
+# Use embedded/persistence to have a common persistence location for all embedded components.
+ELASTICSEARCH_DIR: NONE
+
+# Use embedded/resources to have a common persistence location for all embedded components.
+ELASTICSEARCH_RESOURCE_DIR: NONE
 
 elasticsearch:
   type: SPRING_BOOT_EMBEDDED

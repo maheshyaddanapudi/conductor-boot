@@ -39,6 +39,9 @@ public class EmbeddedElasticsearchConfig {
     @Value("${elasticsearch.dir:embedded/persistence}")
     public String ELASTICSEARCH_DIR;
 
+    @Value("$ELASTICSEARCH_RESOURCE_DIR:embedded/resources}")
+    public String ELASTICSEARCH_RESOURCE_DIR;
+
     @Value("${elasticsearch.cleanInstallationDirectoryOnStop:false}")
     public boolean ELASTICSEARCH_CLEANUP;
 
@@ -60,14 +63,17 @@ public class EmbeddedElasticsearchConfig {
     @Bean
     public EmbeddedElastic embeddedElastic() throws IOException {
 
-        Path path = Paths.get(new ClassPathResource(ELASTICSEARCH_RESOURCE_BINARY_PATH).getPath());
+        if(null!=ELASTICSEARCH_RESOURCE_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_RESOURCE_DIR))
+        {
+            Path path = Paths.get(new ClassPathResource(ELASTICSEARCH_RESOURCE_BINARY_PATH).getPath());
 
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-            logger.info("Embedded Elasticsearch Resource Directory created");
-        } else {
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+                logger.info("Embedded Elasticsearch Resource Directory created");
+            } else {
 
-            logger.info("Embedded Elasticsearch Resource Directory  already exists");
+                logger.info("Embedded Elasticsearch Resource Directory  already exists");
+            }
         }
 
         File elasticsearchResourceFile = new File(ELASTICSEARCH_RESOURCE_BINARY_PATH+"/"+ELASTICSEARCH_RESOURCE_BINARY_NAME);
@@ -78,46 +84,137 @@ public class EmbeddedElasticsearchConfig {
         {
             logger.info("Found ClassPathResource : "+ELASTICSEARCH_RESOURCE_BINARY_NAME+ " and File URL is : "+"file:///"+elasticsearchResourceFile.getAbsolutePath());
 
-            EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-                    .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
-                    .withDownloadUrl(new URL("file:///"+elasticsearchResourceFile.getAbsolutePath()))
-                    .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
-                    .withElasticVersion(ELASTICSEARCH_VERSION)
-                    .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
-                    .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
-                    .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
-                    .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
-                    .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
-                    .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
-                    .build();
+            if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR)){
+                EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
+                        .withDownloadUrl(new URL("file:///"+elasticsearchResourceFile.getAbsolutePath()))
+                        .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
+                        .withElasticVersion(ELASTICSEARCH_VERSION)
+                        .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
+                        .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+                        .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
+                        .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
+                        .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
+                        .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
+                        .build();
 
-            this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
+                this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
 
-            logger.info("Configured Embedded Persistent Elasticsearch with attached bin and no data directory.");
+                logger.info("Configured Embedded Persistent Elasticsearch with attached bin and no data directory.");
 
-            return embeddedElastic;
+                return embeddedElastic;
+            }
+            else
+            {
+                EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
+                        .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
+                        .withDownloadDirectory(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsoluteFile())
+                        .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
+                        .withElasticVersion(ELASTICSEARCH_VERSION)
+                        .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
+                        .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+                        .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
+                        .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
+                        .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
+                        .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
+                        .build();
+
+                this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
+
+                logger.info("Configured Embedded Persistent Elasticsearch with attached bin and no data directory.");
+
+                return embeddedElastic;
+            }
         }
         else {
             logger.warn("ClassPathResource Not Found !!!");
 
-            EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-                    .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
-                    .withDownloadDirectory(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsoluteFile())
-                    .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
-                    .withElasticVersion(ELASTICSEARCH_VERSION)
-                    .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
-                    .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
-                    .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
-                    .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
-                    .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
-                    .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
-                    .build();
+            if(null!=ELASTICSEARCH_RESOURCE_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_RESOURCE_DIR))
+            {
+                if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR)){
+                    EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
+                            .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
+                            .withDownloadDirectory(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsoluteFile())
+                            .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
+                            .withElasticVersion(ELASTICSEARCH_VERSION)
+                            .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
+                            .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+                            .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
+                            .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
+                            .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
+                            .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
+                            .build();
 
-            this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
+                    this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
 
-            logger.info("Configured Embedded Persistent Elasticsearch with downloaded bin and no data directory.");
+                    logger.info("Configured Embedded Persistent Elasticsearch with downloaded bin and no data directory.");
 
-            return embeddedElastic;
+                    return embeddedElastic;
+                }
+                else
+                {
+                    EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
+                            .withDownloadDirectory(new File(ELASTICSEARCH_RESOURCE_BINARY_PATH).getAbsoluteFile())
+                            .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
+                            .withElasticVersion(ELASTICSEARCH_VERSION)
+                            .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
+                            .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+                            .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
+                            .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
+                            .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
+                            .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
+                            .build();
+
+                    this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
+
+                    logger.info("Configured Embedded Persistent Elasticsearch with downloaded bin and no data directory.");
+
+                    return embeddedElastic;
+                }
+
+            }
+            else {
+
+                if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR)){
+                    EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
+                            .withInstallationDirectory(new File(ELASTICSEARCH_DIR))
+                            .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
+                            .withElasticVersion(ELASTICSEARCH_VERSION)
+                            .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
+                            .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+                            .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
+                            .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
+                            .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
+                            .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
+                            .build();
+
+                    this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
+
+                    logger.info("Configured Embedded Persistent Elasticsearch with downloaded bin and no data directory.");
+
+                    return embeddedElastic;
+                }
+                else
+                {
+                    EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
+                            .withDownloaderConnectionTimeout(900, TimeUnit.SECONDS)
+                            .withElasticVersion(ELASTICSEARCH_VERSION)
+                            .withCleanInstallationDirectoryOnStop(ELASTICSEARCH_CLEANUP)
+                            .withStartTimeout(ELASTICSEARCH_STARTUP_TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+                            .withSetting(PopularProperties.HTTP_PORT, ELASTICSEARCH_HTTP_PORT)
+                            .withSetting(PopularProperties.TRANSPORT_TCP_PORT, ELASTICSEARCH_TCP_PORT)
+                            .withSetting(PopularProperties.CLUSTER_NAME, WORKFLOW_ELASTICSEARCH_INDEX_NAME+"_cluster")
+                            .withIndex(WORKFLOW_ELASTICSEARCH_INDEX_NAME)
+                            .build();
+
+                    this.embeddedElasticService.setEmbeddedElastic(embeddedElastic);
+
+                    logger.info("Configured Embedded Persistent Elasticsearch with downloaded bin and no data directory.");
+
+                    return embeddedElastic;
+                }
+
+            }
+
         }
     }
 }
