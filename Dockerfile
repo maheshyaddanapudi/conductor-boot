@@ -4,7 +4,7 @@ MAINTAINER zzzmahesh@gmail.com
 
 ENV DEBIAN_FRONT_END noninteractive
 
-# Declaring internval variables
+# Declaring internal variables
 ENV ELASTICSEARCH_HOST localhost
 ENV ELASTICSEARCH_PORT 9200
 ENV ELASTICSEARCH_DIR /appln/data/elasticsearch

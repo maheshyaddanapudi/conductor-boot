@@ -81,8 +81,10 @@ public class ConductorBootApplication {
 	@EventListener(ApplicationStartedEvent.class)
 	public void mapEnvToProp()
 	{
-		File elasticsearchInstallation = new File(ELASTICSEARCH_DIR+"/elasticsearch-"+ELASTICSEARCH_VERSION);
-		this.elasticsearchInstallationExists = elasticsearchInstallation.exists();
+		if(null!=ELASTICSEARCH_DIR && !Constants.NONE.equalsIgnoreCase(ELASTICSEARCH_DIR)){
+			File elasticsearchInstallation = new File(ELASTICSEARCH_DIR+"/elasticsearch-"+ELASTICSEARCH_VERSION);
+			this.elasticsearchInstallationExists = elasticsearchInstallation.exists();
+		}
 		this.environmentVariablesToSystemPropertiesMappingConfiguration.mapEnvToProp();
 	}
 
