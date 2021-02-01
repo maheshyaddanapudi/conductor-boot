@@ -1,14 +1,16 @@
 ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
+ELASTICSEARCH_DIR: embedded/persistence
+ELASTICSEARCH_RESOURCE_DIR: embedded/resources
 
 elasticsearch:
-  resource:
-    binary:
-      path: embedded/resources/elasticsearch-${elasticsearch.version}
-      name: elasticsearch-${elasticsearch.version}.zip
   type: SPRING_BOOT_EMBEDDED
   version: 5.5.2
-  dir: embedded/persistence
+  resource:
+    binary:
+      path: ${ELASTICSEARCH_RESOURCE_DIR}/elasticsearch-${elasticsearch.version}
+      name: elasticsearch-${elasticsearch.version}.zip
+  dir: ${ELASTICSEARCH_DIR}
   startup:
     time-out: 60
   http:

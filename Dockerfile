@@ -7,6 +7,8 @@ ENV DEBIAN_FRONT_END noninteractive
 # Declaring internval variables
 ENV ELASTICSEARCH_HOST localhost
 ENV ELASTICSEARCH_PORT 9200
+ENV ELASTICSEARCH_DIR /appln/data/elasticsearch
+ENV ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
 ENV ADFS_CLIENT_ID POPULATE_CLIENT_ID
 ENV ADFS_RESOURCE POPULATE_ADFS_RESOURCE
 ENV ADFS_HOST POPULATE_ADFS_HOST
@@ -16,6 +18,7 @@ ENV MYSQL_USER conductor
 ENV MYSQL_PASSWORD conductor
 ENV MYSQL_DATABASE_HOST localhost
 ENV MYSQL_DATABASE_PORT 3306
+ENV MARIADB4J_DIR /appln/data/mariadb4j
 ENV SPRING_PROFILES_ACTIVE basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
 ENV CONDUCTOR_VERSION 2.30.4
 
@@ -36,7 +39,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 RUN mkdir /appln
 
 # Creating necessary directory structures to host the platform
-RUN mkdir /appln/bin /appln/scripts /appln/logs /appln/tmp /appln/tmp/conductor-boot
+RUN mkdir /appln/bin /appln/bin/conductor /appln/bin/elasticsearch /appln/data /appln/data/mariadb4j /appln/data/elasticsearch /appln/scripts /appln/logs /appln/tmp /appln/tmp/conductor-boot
 
 # Creating a dedicated user conductor
 RUN groupadd -g 999 conductor \
@@ -64,11 +67,11 @@ RUN cd /appln/tmp \
   && mvn clean install
 
 # Moving the executable / build to the run location
-RUN mv /appln/tmp/conductor-boot/target/conductor-boot*.jar /appln/bin
+RUN mv /appln/tmp/conductor-boot/target/conductor-boot*.jar /appln/bin/conductor
 
 # Creating the startup script, by passing the env variables to run the jar and tailing /dev/null to keep container running even in case of jar startup failure.
 RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
-  && echo "cd /appln/bin" >> /appln/scripts/startup.sh \
+  && echo "cd /appln/bin/conductor" >> /appln/scripts/startup.sh \
   && echo "java \
   -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE \
   -DELASTICSEARCH_HOST=$ELASTICSEARCH_HOST \
@@ -82,6 +85,9 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -DMYSQL_PASSWORD=$MYSQL_PASSWORD \
   -DMYSQL_DATABASE_HOST=$MYSQL_DATABASE_HOST \
   -DMYSQL_DATABASE_PORT=$MYSQL_DATABASE_PORT \
+  -DMARIADB4J_DIR=$MARIADB4J_DIR \
+  -DELASTICSEARCH_DIR=$ELASTICSEARCH_DIR \
+  -DELASTICSEARCH_RESOURCE_DIR=$ELASTICSEARCH_RESOURCE_DIR \
   -jar conductor-boot-$CONDUCTOR_VERSION.jar > /appln/logs/conductor.log 2>&1 & " >> /appln/scripts/startup.sh \
   && echo "echo \"\$!\" > /appln/app.pid" >> /appln/scripts/startup.sh \
   && echo "sudo tail -f /dev/null" >> /appln/scripts/startup.sh
@@ -89,6 +95,7 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
 # Owning the executable scripts
 RUN sudo chown -R conductor:conductor /appln/scripts /appln/bin
 RUN sudo chmod -R +x /appln/scripts /appln/bin
+RUN sudo chmod -R +w /appln/data
 
 # Removing the temp folder i.e. source code etc used for creating the executable / build.
 RUN sudo rm -rf /appln/tmp

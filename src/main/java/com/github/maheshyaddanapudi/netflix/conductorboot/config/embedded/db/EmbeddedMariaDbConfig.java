@@ -27,6 +27,9 @@ public class EmbeddedMariaDbConfig {
 	
 	@Value("${mariadb4j.port:0}")
 	public int mariadb4jPort;
+
+	@Value("${MARIADB4J_DIR: NONE}")
+	public String MARIADB4J_DIR;
 	
 	@Value("${mariadb4j.dataDir:NONE}")
 	public String mariadb4jDataDir;
@@ -63,7 +66,7 @@ public class EmbeddedMariaDbConfig {
     	mariaDB4jSpringService.getConfiguration().addArg(Constants.MARIADB_ARGS_CONNECT_TIMEOUT + connectTimeout);
     	
     	
-    	if(null == mariadb4jDataDir || Constants.NONE.equalsIgnoreCase(mariadb4jDataDir))
+    	if( (null == MARIADB4J_DIR || Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null == mariadb4jDataDir || Constants.NONE.equalsIgnoreCase(mariadb4jDataDir)) )
     		logger.error("Captured Data Directory as Empty !");
     	else
 		{
@@ -80,7 +83,7 @@ public class EmbeddedMariaDbConfig {
     		mariaDB4jSpringService.setDefaultPort(mariadb4jPort);
     	}
     	
-    	if(null != mariadb4jDataDir && !Constants.NONE.equalsIgnoreCase(mariadb4jDataDir))
+    	if( (null == MARIADB4J_DIR || Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jDataDir && !Constants.NONE.equalsIgnoreCase(mariadb4jDataDir)) )
     	{
 			logger.info("Setting MariaDB4JSpringService data dir to "+mariadb4jDataDir);
     		mariaDB4jSpringService.setDefaultDataDir(mariadb4jDataDir);
@@ -92,7 +95,7 @@ public class EmbeddedMariaDbConfig {
     		mariaDB4jSpringService.setDefaultLibDir(mariadb4jLibDir);
     	}
     	
-    	if(null != mariadb4jBaseDir && !Constants.NONE.equalsIgnoreCase(mariadb4jBaseDir))
+    	if( (null == MARIADB4J_DIR || Constants.NONE.equalsIgnoreCase(MARIADB4J_DIR)) && (null != mariadb4jBaseDir && !Constants.NONE.equalsIgnoreCase(mariadb4jBaseDir)) )
     	{
 			logger.info("Setting MariaDB4JSpringService base dir to "+mariadb4jBaseDir);
     		mariaDB4jSpringService.setDefaultBaseDir(mariadb4jBaseDir);
