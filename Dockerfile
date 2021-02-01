@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 
 MAINTAINER zzzmahesh@gmail.com
 
@@ -7,7 +7,7 @@ ENV DEBIAN_FRONT_END noninteractive
 # Declaring internal variables
 ENV ELASTICSEARCH_HOST localhost
 ENV ELASTICSEARCH_PORT 9200
-ENV ELASTICSEARCH_DIR /appln/data/elasticsearch
+ENV ELASTICSEARCH_DATA_DIR /appln/data/elasticsearch
 ENV ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
 ENV ADFS_CLIENT_ID POPULATE_CLIENT_ID
 ENV ADFS_RESOURCE POPULATE_ADFS_RESOURCE
