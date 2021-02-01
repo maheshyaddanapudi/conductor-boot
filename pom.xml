@@ -156,6 +156,7 @@
 							<classifier>all</classifier>
 						</depedency>
 					</requiresUnpack>
+					<mainClass>com.github.maheshyaddanapudi.netflix.conductorboot.ConductorBootApplication</mainClass>
 				</configuration>
 			</plugin>
 
