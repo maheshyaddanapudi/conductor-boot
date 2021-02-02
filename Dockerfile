@@ -34,7 +34,7 @@ RUN apt-get -y -qq update --ignore-missing --fix-missing \
 
 # Setting JAVA_HOME for performing Maven build.
 ENV JAVA_HOME /usr/local/openjdk-8
-ENV PATH="${JAVA_HOME}:${PATH}"
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # Creating base directory
 RUN mkdir /appln
