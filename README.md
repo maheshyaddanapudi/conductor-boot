@@ -1,5 +1,7 @@
 # Spring Boot Wrapper for Netflix Conductor Server 
 ## With Embedded persistent Security(OAuth2), Database(MariaDB) and Elasticsearch(V5.5.2) 
+## With External Security(OAuth2 & ADFS), Database(MariaDB & MySQL) and Elasticsearch support
+
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
 
@@ -32,11 +34,11 @@ Before starting, for details on Netflix Conductor, refer to <a href="http://netf
 
 ## Overview
 
-The idea is to build a single Spring Boot Jar with the following 
+The idea is to build a single production grade Spring Boot Jar with the following 
 
       • Micro Services Orchestration - by Conductor Server
       
-      • OAuth2 Authentication & Authorization - by Auth & Resource Servers
+      • OAuth2 Authentication & Authorization - by Auth & Resource Servers / External OAuth2 provider or ADFS provider
       
       • Zuul Gateway - by Netflix Zuul Proxy for acting as proxy to Conductor Server APIs
       
@@ -47,19 +49,14 @@ The idea is to build a single Spring Boot Jar with the following
 		cd <to project root folder>
 		mvn clean install
 		
-	The maven build should place the conductor-boot-wrapper-${conductor.version}-secure.jar inside the target folder.
+	The maven build should place the conductor-boot-${conductor.version}.jar inside the target folder.
 
 ## Run the Boot Wrapper
 
 		cd <to project root folder>/target
 		
-	Below command will start the Conductor Boot Wrapper with Embedded MariaDB4J as Database
-		java -jar conductor-boot-wrapper-${conductor.version}-secure.jar
-
-	Below command will start the Conductor Boot Wrapper with external MySQL as Database. Please ensure you have created a config file for DB connection etc as shown in application-mysql.yml
-		java -Dspring.profiles.active=mysql -Dspring.config.location=config/application-mysql.yml -jar conductor-boot-wrapper-${conductor.version}-secure.jar
-
-	Note: -Dspring.config.location points to the path of the external mysql dtabase configuration enhanced application.yml. Sample is available in src/main/resources/application-mysql.yml 
+	Below command will start the Conductor Boot Wrapper with Embedded MariaDB4J as Database and Embedded OAuth2 security as well as persistent Embedded Elasticsearch
+		java -jar conductor-boot-${conductor.version}.jar
 
 ## Application URLs
 
