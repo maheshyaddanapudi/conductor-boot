@@ -30,7 +30,7 @@ USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
-  && apt-get -y -qq install sudo openssl libncurses5-dev
+  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5-dev
 
 # Setting JAVA_HOME for performing Maven build.
 ENV JAVA_HOME /usr/local/openjdk-8
@@ -99,7 +99,7 @@ RUN sudo chmod -R +x /appln/scripts /appln/bin
 RUN sudo chmod -R +w /appln/data
 
 # Removing the temp folder i.e. source code etc used for creating the executable / build.
-RUN sudo rm -rf /tmp/* /appln/data/elasticsearch/* /appln/data/mariadb4j/*
+RUN sudo rm -rf /appln/tmp/* /tmp/* /appln/data/elasticsearch/* /appln/data/mariadb4j/*
 
 # Exposing the necessary ports
 EXPOSE 8080
