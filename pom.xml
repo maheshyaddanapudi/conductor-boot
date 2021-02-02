@@ -31,6 +31,7 @@
 		<sonar.projectKey>maheshyaddanapudi_conductor-boot</sonar.projectKey>
 		<sonar.organization>maheshyaddanapudi</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<gpg.signing.skip>true</gpg.signing.skip>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -243,6 +244,9 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
+						<configuration>
+							<skip>${gpg.signing.skip}</skip>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
