@@ -7,6 +7,8 @@ Circle CI : [![maheshyaddanapudi](https://circleci.com/gh/maheshyaddanapudi/cond
 
 Java CI: ![Java CI with Maven](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
 
+Travis CI: [![Build Status](https://travis-ci.com/maheshyaddanapudi/conductor-boot.svg?branch=main)](https://travis-ci.com/maheshyaddanapudi/conductor-boot)
+
 CodeQL: ![CodeQL](https://github.com/maheshyaddanapudi/conductor-boot/workflows/CodeQL/badge.svg?branch=main)
 
 Docker : ![Docker](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Docker/badge.svg?branch=main)
