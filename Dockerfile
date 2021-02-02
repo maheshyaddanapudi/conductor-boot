@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM maven:3.6.3-jdk-8
 
 MAINTAINER zzzmahesh@gmail.com
 
@@ -30,10 +30,11 @@ USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
-  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5-dev openjdk-8-jdk maven
+  && apt-get -y -qq install sudo openssl libncurses5-dev
 
 # Setting JAVA_HOME for performing Maven build.
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/local/openjdk-8
+ENV PATH="${JAVA_HOME}:${PATH}"
 
 # Creating base directory
 RUN mkdir /appln
@@ -61,13 +62,10 @@ COPY pom.xml /appln/tmp/conductor-boot/
 # Changing to the user conductor
 USER conductor
 
-# Update Java to version 8
-RUN echo 2 | sudo update-alternatives --config java
-
 # Building the executable.
 RUN cd /appln/tmp \
   && cd conductor-boot \
-  && mvn clean install
+  && mvn clean install -q
 
 # Moving the executable / build to the run location
 RUN mv /appln/tmp/conductor-boot/target/conductor-boot*.jar /appln/bin/conductor
@@ -101,7 +99,7 @@ RUN sudo chmod -R +x /appln/scripts /appln/bin
 RUN sudo chmod -R +w /appln/data
 
 # Removing the temp folder i.e. source code etc used for creating the executable / build.
-RUN sudo rm -rf /appln/tmp
+RUN sudo rm -rf /appln/tmp/* /tmp/* ~/.m2 /appln/data/elasticsearch/* /appln/data/mariadb4j/*
 
 # Exposing the necessary ports
 EXPOSE 8080
