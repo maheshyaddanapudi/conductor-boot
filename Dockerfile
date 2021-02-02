@@ -61,6 +61,9 @@ COPY pom.xml /appln/tmp/conductor-boot/
 # Changing to the user conductor
 USER conductor
 
+# Update Java to version 8
+RUN echo 2 | sudo update-alternatives --config java
+
 # Building the executable.
 RUN cd /appln/tmp \
   && cd conductor-boot \
