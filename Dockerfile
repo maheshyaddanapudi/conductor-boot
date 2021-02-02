@@ -1,5 +1,6 @@
 FROM ubuntu:latest
-
+FROM openjdk:8
+FROM maven:3.5-jdk-8
 MAINTAINER zzzmahesh@gmail.com
 
 ENV DEBIAN_FRONT_END noninteractive
@@ -30,7 +31,7 @@ USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
-  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5-dev openjdk-8-jdk maven
+  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5-dev
 
 # Setting JAVA_HOME for performing Maven build.
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
