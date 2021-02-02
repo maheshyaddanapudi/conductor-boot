@@ -3,7 +3,7 @@ ELASTICSEARCH_PORT: 9200
 
 # Use embedded/persistence to have a common persistence location for all embedded components.
 # Default is NONE
-ELASTICSEARCH_DATA_DIR: embedded/persistence
+ELASTICSEARCH_DATA_DIR: NONE
 
 # Use embedded/resources to have a common resources location for all embedded components.
 # Default is NONE

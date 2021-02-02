@@ -1,4 +1,4 @@
-OAUTH2_HOST: POPULATE_EXTERNAL_OAUTH2_HOST
+OAUTH2_HOST: github.maheshyaddanapudi.com
 oauth:
   security: EXTERNAL
 
