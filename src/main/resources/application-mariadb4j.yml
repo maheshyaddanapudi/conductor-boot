@@ -4,6 +4,7 @@ MYSQL_PASSWORD: conductor
 
 # This directory has to be explicitly set to let Embedded MariaDB know the master persistence location.
 # Use embedded/persistence/mariadb4j to have a common persistence location for all embedded components.
+# Default is NONE
 MARIADB4J_DIR: NONE
 
 spring:

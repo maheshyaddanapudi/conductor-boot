@@ -2,9 +2,11 @@ ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
 
 # Use embedded/persistence to have a common persistence location for all embedded components.
-ELASTICSEARCH_DATA_DIR: NONE
+# Default is NONE
+ELASTICSEARCH_DATA_DIR: embedded/persistence
 
 # Use embedded/resources to have a common resources location for all embedded components.
+# Default is NONE
 ELASTICSEARCH_RESOURCE_DIR: NONE
 
 elasticsearch:
