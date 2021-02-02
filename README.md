@@ -1,4 +1,7 @@
-# Spring Boot Wrapper for Netflix Conductor Server - with Embedded persistent Security(OAuth2), Database(MariaDB) and Elasticsearch(V5.5.2) [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
+# Spring Boot Wrapper for Netflix Conductor Server 
+## With Embedded persistent Security(OAuth2), Database(MariaDB) and Elasticsearch(V5.5.2) 
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
 
 Before starting, for details on Netflix Conductor, refer to <a href="http://netflix.github.io/conductor/">Conductor Documentation</a>
 
