@@ -56,7 +56,7 @@ RUN sed -i.bkp -e \
 RUN chown -R conductor:conductor /appln
 
 # Copying the necessary src for build.
-COPY src /appln/tmp/conductor-boot/
+COPY src /appln/tmp/conductor-boot/src
 COPY pom.xml /appln/tmp/conductor-boot/
 
 # Changing to the user conductor
@@ -99,7 +99,7 @@ RUN sudo chmod -R +x /appln/scripts /appln/bin
 RUN sudo chmod -R +w /appln/data
 
 # Removing the temp folder i.e. source code etc used for creating the executable / build.
-RUN sudo rm -rf /appln/tmp/* /tmp/* ~/.m2 /appln/data/elasticsearch/* /appln/data/mariadb4j/*
+RUN sudo rm -rf /tmp/* /appln/data/elasticsearch/* /appln/data/mariadb4j/*
 
 # Exposing the necessary ports
 EXPOSE 8080
