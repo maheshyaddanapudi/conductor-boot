@@ -143,7 +143,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     	.antMatchers(HttpMethod.GET, "/**").permitAll()
 		.antMatchers("/api/**").authenticated()
     	.anyRequest().authenticated()
-		.and().cors().disable().csrf().disable().httpBasic().disable()
+		.and().cors().disable().httpBasic().disable()
 				.exceptionHandling()
 				.authenticationEntryPoint(
 						(request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))

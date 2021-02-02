@@ -38,7 +38,7 @@ public class EmbeddedWebSecurityConfiguration extends WebSecurityConfigurerAdapt
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().exceptionHandling()
+		http.exceptionHandling()
 				.authenticationEntryPoint(
 						(request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
 				.and().authorizeRequests()

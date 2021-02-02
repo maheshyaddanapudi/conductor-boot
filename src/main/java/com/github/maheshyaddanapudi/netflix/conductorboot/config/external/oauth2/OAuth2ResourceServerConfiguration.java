@@ -136,7 +136,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .anyRequest().authenticated()
-                .and().cors().disable().csrf().disable().httpBasic().disable()
+                .and().cors().disable().httpBasic().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))

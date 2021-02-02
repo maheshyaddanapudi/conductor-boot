@@ -17,7 +17,6 @@ public class DisabledWebSecurityConfiguration extends WebSecurityConfigurerAdapt
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http
-				.csrf().disable()
 				.cors().disable()
 				.httpBasic().disable()
 				.authorizeRequests()
