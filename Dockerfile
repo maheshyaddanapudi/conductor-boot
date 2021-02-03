@@ -30,7 +30,7 @@ USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
-  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5-dev
+  && apt-get -y -qq install software-properties-common libaio1 libaio-dev sudo vim curl wget net-tools openssl libncurses5
 
 # Setting JAVA_HOME for performing Maven build.
 ENV JAVA_HOME /usr/local/openjdk-8
@@ -87,7 +87,7 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -DMYSQL_DATABASE_HOST=$MYSQL_DATABASE_HOST \
   -DMYSQL_DATABASE_PORT=$MYSQL_DATABASE_PORT \
   -DMARIADB4J_DIR=$MARIADB4J_DIR \
-  -DELASTICSEARCH_DIR=$ELASTICSEARCH_DIR \
+  -DELASTICSEARCH_DIR=$ELASTICSEARCH_DATA_DIR \
   -DELASTICSEARCH_RESOURCE_DIR=$ELASTICSEARCH_RESOURCE_DIR \
   -jar conductor-boot-$CONDUCTOR_VERSION.jar > /appln/logs/conductor.log 2>&1 & " >> /appln/scripts/startup.sh \
   && echo "echo \"\$!\" > /appln/app.pid" >> /appln/scripts/startup.sh \

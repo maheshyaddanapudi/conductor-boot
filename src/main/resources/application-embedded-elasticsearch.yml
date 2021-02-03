@@ -18,7 +18,7 @@ elasticsearch:
       name: elasticsearch-${elasticsearch.version}.zip
   dir: ${ELASTICSEARCH_DATA_DIR}
   startup:
-    time-out: 60
+    time-out: 120
   http:
     port: ${ELASTICSEARCH_PORT}
   tcp:
