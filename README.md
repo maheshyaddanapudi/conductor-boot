@@ -71,6 +71,62 @@ To run the container :
 
     docker run --name conductor-boot -p 8080:8080 -d zzzmahesh/conductorboot:latest
 
+  Few other examples / ways / configurations to run the container as:
+
+    1) Running with external MySQL and Elasticsearch & Embedded OAuth2 - The database and elasticsearch search is decoupled just leaving the OAuth2 feature to be embedded. The OAuth2 data is persistent as it uses MySQL Database.
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,embedded-oauth2,security,conductor \
+            -e MYSQL_DATABASE_HOST=172.x.x.x \
+            -e MYSQL_DATABASE_PORT=3306 \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_HOST=172.x.x.x \
+            -e ELASTICSEARCH_PORT=9200 \
+            -d zzzmahesh/conductorboot:latest
+
+    2) Running with external MySQL, Elasticsearch & External OAuth2
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,external-oauth2,security,conductor \
+            -e MYSQL_DATABASE_HOST=172.x.x.x \
+            -e MYSQL_DATABASE_PORT=3306 \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_HOST=172.x.x.x \
+            -e ELASTICSEARCH_PORT=9200 \
+            -e OAUTH2_HOST=oauth2.xyz.com \
+            -d zzzmahesh/conductorboot:latest
+
+    3) Running with external MySQL, Elasticsearch & ADFS
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,external-adfs,security,conductor \
+            -e MYSQL_DATABASE_HOST=172.x.x.x \
+            -e MYSQL_DATABASE_PORT=3306 \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_HOST=172.x.x.x \
+            -e ELASTICSEARCH_PORT=9200 \
+            -e ADFS_CLIENT_ID=123-ABC_CLIENT_ID \
+            -e ADFS_RESOURCE=123-ABC_RESOURCE \
+            -e ADFS_HOST=adfs.xyz.com \
+            -d zzzmahesh/conductorboot:latest
+
+    4) Changing the default embedded profile configurations
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_PORT=9200 \
+            -e ELASTICSEARCH_DATA_DIR=/appln/data/elasticsearch
+            -e ELASTICSEARCH_RESOURCE_DIR=/appln/bin/elasticsearch
+            -e MARIADB4J_DIR=/appln/data/mariadb4j
+            -d zzzmahesh/conductorboot:latest        
+
+    Similarly any combination of profile and configurations can be used.
+
 #### All the below mentioned configurables / properties (under Available Profiles section) can be passed as Docker Container environment variables and will be set accordingly.
 
 Available configurables - shown below with default values.
