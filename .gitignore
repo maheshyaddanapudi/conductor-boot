@@ -34,4 +34,6 @@ build/
 .DS_Store
 
 ### Conductor Boot ###
-embedded/persistence/
+embedded/
+
+.github/
