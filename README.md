@@ -22,7 +22,7 @@ Before starting, for details on Netflix Conductor, refer to <a href="http://netf
 
 The idea is to build a single production grade Spring Boot Jar with the following 
 
-      • Micro Services Orchestration - by Conductor Server
+      • Micro Services Orchestration - by Integrated Conductor Server
       
       • Spring Cloud - OAuth2 Authentication & Authorization - by Auth & Resource Servers / External OAuth2 provider or ADFS provider
       
@@ -31,6 +31,37 @@ The idea is to build a single production grade Spring Boot Jar with the followin
       • Optional Embedded Persistent MariaDB4j
 
       • Optional Embedded Persistent Elasticsearch
+
+## Motivation
+
+To avoid the pain points of
+
+      • Hosting OAuth2 Server for securing Conductor Server APIs
+      
+      • Housing external database engine for Conductor Server persistence unit
+
+      • Housing external elasticsearch engine for Conductor Server persistence unit
+
+
+## Tech / Framework used
+
+      --> Docker Image to host the Jar. (Will be added soon - with pre built jar inside docker image)
+	  			
+      --> Spring Boot Wrapper
+			
+            • Spring Cloud OAuth2
+            
+            • MariaDB4j
+            
+            • Flyway Initialiser
+            
+            • Liquibase Initialiser
+            
+            • Netflix Conductor Server with MySQL as persistence option (with pre-existing flyway migration).
+			
+            • Netflix Zuul Proxy Server
+
+            • Elasticsearch
 
 ## Code coverage
 
@@ -286,37 +317,6 @@ For mapping volumes i.e. having persistent container data, follow these steps.
     2) Uncomment the volumes section under mysql & elasticsearch and the root volumes section.
 
 Also, the database can be swapped from mysql:5.7 to mariadb:latest if desired (in docker-compose.yml).
-
-## Motivation
-
-To avoid the pain points of
-
-      • Hosting OAuth2 Server for securing Conductor Server APIs
-      
-      • Housing external database engine for Conductor Server persistence unit
-
-      • Housing external elasticsearch engine for Conductor Server persistence unit
-      
-
-## Tech / Framework used
-      
-      --> Docker Image to host the Jar. (Will be added soon - with pre built jar inside docker image)
-	  			
-      --> Spring Boot Wrapper
-			
-            • Spring Cloud OAuth2
-            
-            • MariaDB4j
-            
-            • Flyway Initialiser
-            
-            • Liquibase Initialiser
-            
-            • Netflix Conductor Server with MySQL as persistence option (with pre-existing flyway migration).
-			
-            • Netflix Zuul Proxy Server
-
-            • Elasticsearch
 
 ## Authentication Process
 
