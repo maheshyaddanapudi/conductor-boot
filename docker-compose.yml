@@ -13,9 +13,9 @@ services:
       - 9300:9300
     healthcheck:
       test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:9200/_cat/health"]
-      interval: 120s
+      interval: 30s
       timeout: 30s
-      retries: 10
+      retries: 15
     mem_limit: "3096000000"
     #volumes:
       #- es_data:/var/lib/elasticsearch
@@ -37,7 +37,7 @@ services:
       MYSQL_INITDB_SKIP_TZINFO: NONE
     healthcheck:
       test: [ "CMD-SHELL", 'mysqladmin ping' ]
-      interval: 120s
+      interval: 30s
       timeout: 30s
       retries: 15
     mem_limit: "512000000"
@@ -92,7 +92,7 @@ services:
       SPRING_PROFILES_ACTIVE: basic,mysql,external-elasticsearch,embedded-oauth2,security,conductor
     healthcheck:
       test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8080/api/health"]
-      interval: 60s
+      interval: 30s
       timeout: 30s
       retries: 15
     mem_limit: "1536000000"

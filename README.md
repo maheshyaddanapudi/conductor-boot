@@ -11,7 +11,7 @@ Before starting, for details on Netflix Conductor, refer to <a href="http://netf
 
 ##### Note
 
-      • Only MySQL is supported as external Database
+      • Only MySQL (Till version 5.7) is supported as external Database
       
       				Or
       
@@ -70,93 +70,7 @@ To pull the image :
 
 	docker pull zzzmahesh/conductorboot
 
-To run the container :
-
-    docker run --name conductor-boot -p 8080:8080 -d zzzmahesh/conductorboot:latest
-
-  Few other examples / ways / configurations to run the container as:
-
-    1) Running with external MySQL and Elasticsearch & Embedded OAuth2 - The database and elasticsearch search is decoupled just leaving the OAuth2 feature to be embedded. The OAuth2 data is persistent as it uses MySQL Database.
-
-        docker run --name conductor-boot -p 8080:8080 \
-            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,embedded-oauth2,security,conductor \
-            -e MYSQL_DATABASE_HOST=172.x.x.x \
-            -e MYSQL_DATABASE_PORT=3306 \
-            -e MYSQL_USER=conductor \
-            -e MYSQL_PASSWORD=conductor \
-            -e ELASTICSEARCH_HOST=172.x.x.x \
-            -e ELASTICSEARCH_PORT=9200 \
-            -d zzzmahesh/conductorboot:latest
-
-    2) Running with external MySQL, Elasticsearch & External OAuth2
-
-        docker run --name conductor-boot -p 8080:8080 \
-            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,external-oauth2,security,conductor \
-            -e MYSQL_DATABASE_HOST=172.x.x.x \
-            -e MYSQL_DATABASE_PORT=3306 \
-            -e MYSQL_USER=conductor \
-            -e MYSQL_PASSWORD=conductor \
-            -e ELASTICSEARCH_HOST=172.x.x.x \
-            -e ELASTICSEARCH_PORT=9200 \
-            -e OAUTH2_HOST=oauth2.xyz.com \
-            -d zzzmahesh/conductorboot:latest
-
-    3) Running with external MySQL, Elasticsearch & ADFS
-
-        docker run --name conductor-boot -p 8080:8080 \
-            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,external-adfs,security,conductor \
-            -e MYSQL_DATABASE_HOST=172.x.x.x \
-            -e MYSQL_DATABASE_PORT=3306 \
-            -e MYSQL_USER=conductor \
-            -e MYSQL_PASSWORD=conductor \
-            -e ELASTICSEARCH_HOST=172.x.x.x \
-            -e ELASTICSEARCH_PORT=9200 \
-            -e ADFS_CLIENT_ID=123-ABC_CLIENT_ID \
-            -e ADFS_RESOURCE=123-ABC_RESOURCE \
-            -e ADFS_HOST=adfs.xyz.com \
-            -d zzzmahesh/conductorboot:latest
-
-    4) Changing the default embedded profile configurations
-
-        docker run --name conductor-boot -p 8080:8080 \
-            -e SPRING_PROFILES_ACTIVE=basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor \
-            -e MYSQL_USER=conductor \
-            -e MYSQL_PASSWORD=conductor \
-            -e ELASTICSEARCH_PORT=9200 \
-            -e ELASTICSEARCH_DATA_DIR=/appln/data/elasticsearch
-            -e ELASTICSEARCH_RESOURCE_DIR=/appln/bin/elasticsearch
-            -e MARIADB4J_DIR=/appln/data/mariadb4j
-            -d zzzmahesh/conductorboot:latest        
-
-    Similarly any combination of profile and configurations can be used.
-
-#### All the below mentioned configurables / properties (under Available Profiles section) can be passed as Docker Container environment variables and will be set accordingly.
-
-Available configurables - shown below with default values.
-
-    ELASTICSEARCH_HOST localhost
-    ELASTICSEARCH_PORT 9200
-    ELASTICSEARCH_DATA_DIR /appln/data/elasticsearch
-    ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
-    ADFS_CLIENT_ID POPULATE_CLIENT_ID
-    ADFS_RESOURCE POPULATE_ADFS_RESOURCE
-    ADFS_HOST POPULATE_ADFS_HOST
-    OAUTH2_HOST POPULATE_EXTERNAL_OAUTH2_HOST
-    MYSQL_DATABASE conductor
-    MYSQL_USER conductor
-    MYSQL_PASSWORD conductor
-    MYSQL_DATABASE_HOST localhost
-    MYSQL_DATABASE_PORT 3306
-    MARIADB4J_DIR /appln/data/mariadb4j
-    SPRING_PROFILES_ACTIVE basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
-
-Also the below mentioned paths / volumes can be mounted to docker container for persistence, in case of embedded profiles (mariadb4j and embedded-elasticsearch)
-    
-    ELASTICSEARCH_DATA_DIR /appln/data/elasticsearch
-    ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
-    MARIADB4J_DIR /appln/data/mariadb4j
-
-## Run Conductor Boot
+## Run Conductor Boot : Java
 
 		cd <to project root folder>/target
 		
@@ -261,6 +175,118 @@ Also the below mentioned paths / volumes can be mounted to docker container for 
 			a) http://localhost:8080/openapi-ui - To access the Swagger pertaining to APIs for OAUTH
 			b) http://localhost:8080/ - To access the Swagger pertaining to APIs for Conductor, as redirection is taken care to index.html
 
+## Run Conductor Boot : Docker
+
+To run the container :
+
+    docker run --name conductor-boot -p 8080:8080 -d zzzmahesh/conductorboot:latest
+
+Few other examples / ways / configurations to run the container as:
+
+    1) Running with external MySQL and Elasticsearch & Embedded OAuth2 - The database and elasticsearch search is decoupled just leaving the OAuth2 feature to be embedded. The OAuth2 data is persistent as it uses MySQL Database.
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,embedded-oauth2,security,conductor \
+            -e MYSQL_DATABASE_HOST=172.x.x.x \
+            -e MYSQL_DATABASE_PORT=3306 \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_HOST=172.x.x.x \
+            -e ELASTICSEARCH_PORT=9200 \
+            -d zzzmahesh/conductorboot:latest
+
+    2) Running with external MySQL, Elasticsearch & External OAuth2
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,external-oauth2,security,conductor \
+            -e MYSQL_DATABASE_HOST=172.x.x.x \
+            -e MYSQL_DATABASE_PORT=3306 \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_HOST=172.x.x.x \
+            -e ELASTICSEARCH_PORT=9200 \
+            -e OAUTH2_HOST=oauth2.xyz.com \
+            -d zzzmahesh/conductorboot:latest
+
+    3) Running with external MySQL, Elasticsearch & ADFS
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mysql,external-elasticsearch,external-adfs,security,conductor \
+            -e MYSQL_DATABASE_HOST=172.x.x.x \
+            -e MYSQL_DATABASE_PORT=3306 \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_HOST=172.x.x.x \
+            -e ELASTICSEARCH_PORT=9200 \
+            -e ADFS_CLIENT_ID=123-ABC_CLIENT_ID \
+            -e ADFS_RESOURCE=123-ABC_RESOURCE \
+            -e ADFS_HOST=adfs.xyz.com \
+            -d zzzmahesh/conductorboot:latest
+
+    4) Changing the default embedded profile configurations
+
+        docker run --name conductor-boot -p 8080:8080 \
+            -e SPRING_PROFILES_ACTIVE=basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor \
+            -e MYSQL_USER=conductor \
+            -e MYSQL_PASSWORD=conductor \
+            -e ELASTICSEARCH_PORT=9200 \
+            -e ELASTICSEARCH_DATA_DIR=/appln/data/elasticsearch
+            -e ELASTICSEARCH_RESOURCE_DIR=/appln/bin/elasticsearch
+            -e MARIADB4J_DIR=/appln/data/mariadb4j
+            -d zzzmahesh/conductorboot:latest        
+
+    Similarly any combination of profile and configurations can be used.
+
+#### All the below mentioned configurables / properties (under Available Profiles section) can be passed as Docker Container environment variables and will be set accordingly.
+
+Available configurables - shown below with default values.
+
+    ELASTICSEARCH_HOST localhost
+    ELASTICSEARCH_PORT 9200
+    ELASTICSEARCH_DATA_DIR /appln/data/elasticsearch
+    ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
+    ADFS_CLIENT_ID POPULATE_CLIENT_ID
+    ADFS_RESOURCE POPULATE_ADFS_RESOURCE
+    ADFS_HOST POPULATE_ADFS_HOST
+    OAUTH2_HOST POPULATE_EXTERNAL_OAUTH2_HOST
+    MYSQL_DATABASE conductor
+    MYSQL_USER conductor
+    MYSQL_PASSWORD conductor
+    MYSQL_DATABASE_HOST localhost
+    MYSQL_DATABASE_PORT 3306
+    MARIADB4J_DIR /appln/data/mariadb4j
+    SPRING_PROFILES_ACTIVE basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
+
+Also the below mentioned paths / volumes can be mounted to docker container for persistence, in case of embedded profiles (mariadb4j and embedded-elasticsearch)
+
+    ELASTICSEARCH_DATA_DIR /appln/data/elasticsearch
+    ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
+    MARIADB4J_DIR /appln/data/mariadb4j
+
+
+To run the docker-compose : To externalize database and elastisearch into different containters, using their corresponding official dockerhub images.
+
+    docker-compose build
+    docker-compose up or docker-compose -d (For deamonizing the processes)
+
+Once all containers are started successfully, the "docker ps" output should look something similar to below.
+
+    CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS                   PORTS                                              NAMES
+    2cc0e92ebf50   conductor-boot:latest   "/bin/bash /appln/sc…"   23 minutes ago   Up 2 minutes (healthy)   0.0.0.0:8080->8080/tcp                             conductor-boot_conductor-boot_1
+    718dea9898f0   elasticsearch:5.6       "/docker-entrypoint.…"   54 minutes ago   Up 2 minutes (healthy)   0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp     conductor-boot_elasticsearch_1
+    a5f55ff9aacd   mysql:5.7               "docker-entrypoint.s…"   54 minutes ago   Up 2 minutes (healthy)   0.0.0.0:3306->3306/tcp, 0.0.0.0:33060->33060/tcp   conductor-boot_database_1
+
+For mapping volumes i.e. having persistent container data, follow these steps.
+
+    1) Create the following directories (These are custimizable to match docker-compose.yml volumes definitions)
+
+        container/persistence/elasticsearch
+        container/persistence/mysql
+
+    2) Uncomment the volumes section under mysql & elasticsearch and the root volumes section.
+
+Also, the database can be swapped from mysql:5.7 to mariadb:latest if desired (in docker-compose.yml).
+
 ## Motivation
 
 To avoid the pain points of
@@ -308,13 +334,13 @@ To avoid the pain points of
 	  		
 	  		NOTE: For accessing Condcutor Swagger on HTTPS https://localhost:8080/index.html should be used as a default redirection doesnt work.
   
-  • HTTP only mode - Change the property to true and HTTPS will be disabled
+  • HTTP only mode (default) - Change the property to false and HTTPS will be disabled
   
 	  		server:
 	  		  ssl:
 	  		    enabled: false
 	  		    
-NOTE: For accessing Condcutor Swagger on HTTPS https://localhost:8080/ will be sufficient as redirection works without https.
+NOTE: For accessing Integrated Condcutor Swagger on HTTPS https://localhost:8080/ will be sufficient as redirection works without https.
 
 
 ##### Generating a self-signed certificate (Not Recommended - Developer use only)
