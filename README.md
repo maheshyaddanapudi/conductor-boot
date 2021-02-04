@@ -41,11 +41,11 @@ The idea is to build a single production grade Spring Boot Jar with the followin
 
 ## Build Status
 
-Circle CI : [![maheshyaddanapudi](https://circleci.com/gh/maheshyaddanapudi/conductor-boot.svg?style=shield)](https://circleci.com/gh/maheshyaddanapudi/conductor-boot)
-
-Java CI: ![Java CI with Maven](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main)
-
-Travis CI: [![Build Status](https://travis-ci.com/maheshyaddanapudi/conductor-boot.svg?branch=main)](https://travis-ci.com/maheshyaddanapudi/conductor-boot)
+| CI Provider | Status          |
+| ------- | ------------------ |
+| Circle CI   | [![maheshyaddanapudi](https://circleci.com/gh/maheshyaddanapudi/conductor-boot.svg?style=shield)](https://circleci.com/gh/maheshyaddanapudi/conductor-boot) |
+| Java CI   | ![Java CI with Maven](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main) |
+| Travis CI   | [![Build Status](https://travis-ci.com/maheshyaddanapudi/conductor-boot.svg?branch=main)](https://travis-ci.com/maheshyaddanapudi/conductor-boot) |
 
 ## Code coverage
 
@@ -55,13 +55,14 @@ CodeQL: ![CodeQL](https://github.com/maheshyaddanapudi/conductor-boot/workflows/
 
 SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=maheshyaddanapudi_conductor-boot&metric=alert_status)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
 
-## Containerization
+## Containerization CI
 
-Docker : ![Docker](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Docker/badge.svg?branch=main)
+| CI Provider | Status          |
+| ------- | ------------------ |
+| Docker   | ![Docker](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Docker/badge.svg?branch=main) |
+| Docker Image CI   | ![Docker Image CI](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Docker%20Image%20CI/badge.svg?branch=main) |
 
-Docker Image CI: ![Docker Image CI](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Docker%20Image%20CI/badge.svg?branch=main)
-
-Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/conductorboot">DockerHub here</a>
+Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/conductorboot" target="_blank">DockerHub here</a>
 
 Image is equipped with basic tools like vim, curl, wget, net-tools(telnet)
 
