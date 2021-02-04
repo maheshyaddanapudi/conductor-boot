@@ -21,7 +21,7 @@ public class MySQLDbConfig {
     public DataSource dataSource(
                           @Value("${spring.datasource.username:conductor}") String datasourceUsername,
                           @Value("${spring.datasource.password:conductor}") String datasourcePassword,
-                          @Value("${spring.datasource.url:jdbc:mysql://localhost:3306/conductor?createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false}") String datasourceUrl,
+                          @Value("${spring.datasource.url:jdbc:mysql://localhost:3306/conductor??createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false&allowPublicKeyRetrieval=true&useMysqlMetadata=true}") String datasourceUrl,
                           @Value("${spring.datasource.driver-class-name:com.mysql.cj.jdbc.Driver}") String datasourceDriver){
 
 		System.setProperty(Constants.DB, Constants.MYSQL);

@@ -278,6 +278,6 @@ create table if not exists oauth_approvals (
 	clientId VARCHAR(256),
 	scope VARCHAR(256),
 	status VARCHAR(10),
-	expiresAt TIMESTAMP,
-	lastModifiedAt TIMESTAMP
+	expiresAt TIMESTAMP NULL,
+	lastModifiedAt TIMESTAMP NULL
 );

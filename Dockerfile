@@ -74,21 +74,21 @@ RUN mv /appln/tmp/conductor-boot/target/conductor-boot*.jar /appln/bin/conductor
 RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   && echo "cd /appln/bin/conductor" >> /appln/scripts/startup.sh \
   && echo "java \
-  -Dspring.profiles.active=\"$SPRING_PROFILES_ACTIVE\" \
-  -DELASTICSEARCH_HOST=\"$ELASTICSEARCH_HOST\" \
-  -DELASTICSEARCH_PORT=\"$ELASTICSEARCH_PORT\" \
-  -DADFS_CLIENT_ID=\"$ADFS_CLIENT_ID\" \
-  -DADFS_RESOURCE=\"$ADFS_RESOURCE\" \
-  -DADFS_HOST=\"$ADFS_HOST\" \
-  -DOAUTH2_HOST=\"$OAUTH2_HOST\" \
-  -DMYSQL_DATABASE=\"$MYSQL_DATABASE\" \
-  -DMYSQL_USER=\"$MYSQL_USER\" \
-  -DMYSQL_PASSWORD=\"$MYSQL_PASSWORD\" \
-  -DMYSQL_DATABASE_HOST=\"$MYSQL_DATABASE_HOST\" \
-  -DMYSQL_DATABASE_PORT=\"$MYSQL_DATABASE_PORT\" \
-  -DMARIADB4J_DIR=\"$MARIADB4J_DIR\" \
-  -DELASTICSEARCH_DIR=\"$ELASTICSEARCH_DATA_DIR\" \
-  -DELASTICSEARCH_RESOURCE_DIR=\"$ELASTICSEARCH_RESOURCE_DIR\" \
+  -Dspring.profiles.active=\$SPRING_PROFILES_ACTIVE \
+  -DELASTICSEARCH_HOST=\$ELASTICSEARCH_HOST \
+  -DELASTICSEARCH_PORT=\$ELASTICSEARCH_PORT \
+  -DADFS_CLIENT_ID=\$ADFS_CLIENT_ID \
+  -DADFS_RESOURCE=\$ADFS_RESOURCE \
+  -DADFS_HOST=\$ADFS_HOST \
+  -DOAUTH2_HOST=\$OAUTH2_HOST \
+  -DMYSQL_DATABASE=\$MYSQL_DATABASE \
+  -DMYSQL_USER=\$MYSQL_USER \
+  -DMYSQL_PASSWORD=\$MYSQL_PASSWORD \
+  -DMYSQL_DATABASE_HOST=\$MYSQL_DATABASE_HOST \
+  -DMYSQL_DATABASE_PORT=\$MYSQL_DATABASE_PORT \
+  -DMARIADB4J_DIR=\$MARIADB4J_DIR \
+  -DELASTICSEARCH_DIR=\$ELASTICSEARCH_DATA_DIR \
+  -DELASTICSEARCH_RESOURCE_DIR=\$ELASTICSEARCH_RESOURCE_DIR \
   -jar conductor-boot-$CONDUCTOR_VERSION.jar > /appln/logs/conductor.log 2>&1 & " >> /appln/scripts/startup.sh \
   && echo "echo \"\$!\" > /appln/app.pid" >> /appln/scripts/startup.sh \
   && echo "sudo tail -f /dev/null" >> /appln/scripts/startup.sh
