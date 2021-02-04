@@ -63,6 +63,8 @@ Docker Image CI: ![Docker Image CI](https://github.com/maheshyaddanapudi/conduct
 
 Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/conductorboot">DockerHub here</a>
 
+Image is equipped with basic tools like vim, curl, wget, net-tools(telnet)
+
 To pull the image :
 
 	docker pull zzzmahesh/conductorboot
