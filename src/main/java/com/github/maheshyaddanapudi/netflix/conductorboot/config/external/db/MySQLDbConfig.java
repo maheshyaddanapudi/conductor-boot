@@ -24,6 +24,11 @@ public class MySQLDbConfig {
                           @Value("${spring.datasource.url:jdbc:mysql://localhost:3306/conductor?createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false}") String datasourceUrl,
                           @Value("${spring.datasource.driver-class-name:com.mysql.cj.jdbc.Driver}") String datasourceDriver){
 
+		if(!datasourceUrl.contains("useMysqlMetadata"))
+		{
+			datasourceUrl = datasourceUrl + "&" + Constants.MARIADB_URL_EXTN_USE_MYSQL_METADATA;
+		}
+
 		System.setProperty(Constants.DB, Constants.MYSQL);
 		System.setProperty(Constants.JDBC_URL, datasourceUrl);
 		System.setProperty(Constants.JDBC_USERNAME, datasourceUsername);

@@ -32,13 +32,6 @@ The idea is to build a single production grade Spring Boot Jar with the followin
 
       • Optional Embedded Persistent Elasticsearch
 
-## Build using maven
-
-		cd <to project root folder>
-		mvn clean install
-		
-	The maven build should place the conductor-boot-${conductor.version}.jar inside the target folder.
-  
 ## Code coverage
 
 CodeQL: ![CodeQL](https://github.com/maheshyaddanapudi/conductor-boot/workflows/CodeQL/badge.svg?branch=main)
@@ -46,6 +39,13 @@ CodeQL: ![CodeQL](https://github.com/maheshyaddanapudi/conductor-boot/workflows/
 ## Code quality
 
 SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=maheshyaddanapudi_conductor-boot&metric=alert_status)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
+
+## Build using maven
+
+		cd <to project root folder>
+		mvn clean install
+		
+	The maven build should place the conductor-boot-${conductor.version}.jar inside the target folder.
 
 ## Build CI (Continuous Integration)
 
@@ -55,7 +55,7 @@ SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/meas
 | Java CI   | ![Java CI with Maven](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main) |
 | Travis CI   | [![Build Status](https://travis-ci.com/maheshyaddanapudi/conductor-boot.svg?branch=main)](https://travis-ci.com/maheshyaddanapudi/conductor-boot) |
 
-## Containerization CI
+## Containerization CI (Continuous Integration)
 
 | CI Provider | Status          |
 | ------- | ------------------ |
@@ -234,7 +234,7 @@ Also the below mentioned paths / volumes can be mounted to docker container for 
         Configurations available are as below. Shown are default values.
             OAUTH2_HOST: github.maheshyaddanapudi.com
 
-    9) external-adfs (cannot be selected alone, will need security profiles as well)
+    9) external-adfs (cannot be selected alone, will need security profile as well)
         This profile configures the external OAuth2 and the Integrated Conductor Server API's are protected / secure.
         The roles specified below, in the Roles section, need to be configured in the corresponding ADFS provider system.
         Configurations available are as below. Shown are default values.
