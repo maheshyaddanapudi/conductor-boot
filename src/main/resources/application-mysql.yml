@@ -6,7 +6,7 @@ MYSQL_PASSWORD: conductor
 
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_DATABASE_HOST}:${MYSQL_DATABASE_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false
+    url: jdbc:mysql://${MYSQL_DATABASE_HOST}:${MYSQL_DATABASE_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false&allowPublicKeyRetrieval=true&useMysqlMetadata=true
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
 
