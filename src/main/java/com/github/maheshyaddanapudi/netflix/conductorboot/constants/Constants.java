@@ -11,6 +11,7 @@ public class Constants {
     public static final String TEST = "test";
     public static final String STRING_INITIALIZR = "";
     public static final String COMMA = ",";
+    public static final String DOT = ".";
     public static final String CONDUCTOR = "conductor";
     public static final String EMAIL = "email";
     public static final String ZERO = "0";
@@ -37,6 +38,7 @@ public class Constants {
     public static final String MARIADB_ARGS_MAX_CONNECTIONS = "--max-connections=";
     public static final String MARIADB_ARGS_WAIT_TIMEOUT = "--wait-timeout=";
     public static final String MARIADB_ARGS_CONNECT_TIMEOUT = "--connect-timeout=";
+    public static final String MARIADB4J_SPRING_SERVICE = "mariaDB4jSpringService";
 
     public static final String MARIADB_URL_EXTN_AUTO_RECONNECT = "autoReconnect=true";
     public static final String MARIADB_URL_EXTN_USE_MYSQL_METADATA = "useMysqlMetadata=true";
@@ -82,6 +84,7 @@ public class Constants {
     public static final String OPTIONS = "OPTIONS";
 
     // Database Common Constants
+    public static final String dataSource = "dataSource";
     public static final String DATASOURCE = "datasource";
     public static final String CACHE_PREP_STMTS = "cachePrepStmts";
     public static final String PREP_STMT_CACHE_SIZE = "prepStmtCacheSize";
@@ -91,6 +94,7 @@ public class Constants {
     public static final String USER_SERVER_PREP_STMTS = "useServerPrepStmts";
     public static final String UTC = "UTC";
     public static final String _100 = "100";
+    public static final String _2 = "2";
     public static final String CONNECTION_INIT_SQL = "connectionInitSql";
     public static final String CONNECTION_INIT_SQL_VALUE = "set character_set_client = utf8mb4;";
     public static final String PRE_CONDUCTOR = "pre-conductor";
@@ -102,7 +106,9 @@ public class Constants {
     public static final String AUTO_RECONNECT = "autoReconnect";
     public static final String POOL_NAME = "poolName";
     public static final String MAX_POOL_SIZE = "maxPoolSize";
+    public static final String MIN_IDLE = "minimumIdle";
     public static final String MAX_LIFETIME = "maxLifetime";
     public static final String DATASOURCE_PROPERTIES = "dataSourceProperties";
+    public static final String DRIVER_CLASS_NAME = "driverClassName";
 
 }
