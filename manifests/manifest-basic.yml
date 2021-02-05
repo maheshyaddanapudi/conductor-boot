@@ -1,8 +1,0 @@
----
-applications:
-  - name: conductor-boot
-    memory: 4096M
-    random-route: true
-    path: ../target/conductor-boot-2.30.4.jar
-    env:
-      SPRING_PROFILES_ACTIVE: basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
