@@ -18,7 +18,7 @@ services:
       retries: 15
     mem_limit: "3096000000"
     #volumes:
-      #- es_data:/var/lib/elasticsearch
+    #- es_data:/var/lib/elasticsearch
   database:
     image: mysql:5.7
     restart: always
@@ -42,8 +42,8 @@ services:
       retries: 15
     mem_limit: "512000000"
       #volumes:
-        #- db_data:/var/lib/mysql
-  #database:
+      #- db_data:/var/lib/mysql
+      #database:
       #    image: mariadb:latest
       #    restart: always
       #    networks:
@@ -66,7 +66,7 @@ services:
       #      retries: 15
       #    mem_limit: "512000000"
     #volumes:
-      #- db_data:/var/lib/mysql
+    #- db_data:/var/lib/mysql
   conductor-boot:
     image: conductor-boot:latest
     build:
@@ -96,7 +96,7 @@ services:
       timeout: 30s
       retries: 15
     mem_limit: "1536000000"
-#volumes:
+  #volumes:
   #  es_data:
   #    driver: local
   #    driver_opts:

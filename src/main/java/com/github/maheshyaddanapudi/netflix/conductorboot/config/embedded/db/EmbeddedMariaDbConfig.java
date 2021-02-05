@@ -142,7 +142,7 @@ public class EmbeddedMariaDbConfig {
 		dataSourceProperties.setProperty("jdbcUrl", databaseUrl);
 		dataSourceProperties.setProperty("username", datasourceUsername);
 		dataSourceProperties.setProperty("password", datasourcePassword);
-		dataSourceProperties.setProperty("maximumPoolSize", "10");
+		dataSourceProperties.setProperty("maximumPoolSize", "100");
 		dataSourceProperties.setProperty("minimumIdle", "2");
 		dataSourceProperties.setProperty("dataSource.cachePrepStmts","true");
 		dataSourceProperties.setProperty("dataSource.prepStmtCacheSize", "256");
