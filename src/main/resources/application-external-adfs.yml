@@ -1,6 +1,9 @@
 ADFS_CLIENT_ID: ABCD-1234_CLIENT
 ADFS_RESOURCE: ABCD-1234_RESOURCE
 ADFS_HOST: idm.github.maheshyaddanapudi.com
+ADFS_USER_AUTHORIZATION_URL: https://${ADFS_HOST}/adfs/oauth2/authorize
+ADFS_ACCESS_TOKEN_URL: https://${ADFS_HOST}/adfs/oauth2/token
+ADFS_USER_INFO_URL: https://${ADFS_HOST}/adfs/oauth2/authorize
 
 oauth:
   security: ADFS
@@ -8,12 +11,12 @@ oauth:
 security:
   oauth2:
     client:
-      clientId: $ADFS_CLIENT_ID
-      userAuthorizationUri: https://$ADFS_HOST/adfs/oauth2/authorize?resource=$ADFS_RESOURCE
-      accessTokenUri: https://$ADFS_HOST/adfs/oauth2/token
+      clientId: ${ADFS_CLIENT_ID}
+      userAuthorizationUri: ${ADFS_USER_AUTHORIZATION_URL}?resource=${ADFS_RESOURCE}
+      accessTokenUri: ${ADFS_ACCESS_TOKEN_URL}
       tokenName: code
       authenticationScheme: query
       clientAuthenticationScheme: form
       grant-type: authorization_code
     resource:
-      userInfoUri: https://$ADFS_HOST/adfs/oauth2/token
+      userInfoUri: ${ADFS_USER_INFO_URL}

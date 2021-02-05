@@ -1,5 +1,8 @@
 ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
+ELASTICSEARCH_URL: http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
+ELASTICSEARCH_HEALTH_STATUS_COLOR: yellow
+ELASTICSEARCH_VERSION: 5
 
 elasticsearch:
   type: EXTERNAL
@@ -8,8 +11,8 @@ workflow:
   elasticsearch:
     cluster:
       health:
-        color: yellow
-    version: 5
+        color: ${ELASTICSEARCH_HEALTH_STATUS_COLOR}
+    version: ${ELASTICSEARCH_VERSION}
     instanceType: EXTERNAL
     index:
       name: conductor

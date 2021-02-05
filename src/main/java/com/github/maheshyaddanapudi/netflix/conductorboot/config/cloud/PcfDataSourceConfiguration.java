@@ -20,39 +20,39 @@ import java.util.Map;
 import java.util.Properties;
 
 @Configuration
-@Profile("cf-mysql")
+@Profile(Constants.CF_MYSQL)
 public class PcfDataSourceConfiguration {
 
   private final Logger logger = LoggerFactory.getLogger(PcfDataSourceConfiguration.class.getSimpleName());
 
-  @Bean("cloud")
+  @Bean(Constants.CLOUD)
   public Cloud cloud() {
     return new CloudFactory().getCloud();
   }
 
-  @Bean("datasource")
-  @DependsOn("cloud")
+  @Bean(Constants.DATASOURCE)
+  @DependsOn(Constants.CLOUD)
   public DataSource dataSource() throws SQLException {
 
     final Properties dataSourceProperties = new Properties();
 
-    dataSourceProperties.setProperty("cachePrepStmts","true");
-    dataSourceProperties.setProperty("prepStmtCacheSize","250");
-    dataSourceProperties.setProperty("prepStmtCacheSqlLimit","2048");
-    dataSourceProperties.setProperty("useServerPrepStmts","true");
-    dataSourceProperties.setProperty("useLegacyDatetimeCode","false");
-    dataSourceProperties.setProperty("serverTimezone","UTC");
-    dataSourceProperties.setProperty("connectionCollation","utf8mb4_unicode_ci");
-    dataSourceProperties.setProperty("useSSL","false");
-    dataSourceProperties.setProperty("autoReconnect","true");
+    dataSourceProperties.setProperty(Constants.CACHE_PREP_STMTS,Constants.TRUE);
+    dataSourceProperties.setProperty(Constants.PREP_STMT_CACHE_SIZE,Constants._256);
+    dataSourceProperties.setProperty(Constants.PREP_STMT_CACHE_SQL_LIMIT,Constants._2048);
+    dataSourceProperties.setProperty(Constants.USER_SERVER_PREP_STMTS,Constants.TRUE);
+    dataSourceProperties.setProperty(Constants.USE_LEGACY_DATETIME_CODE,Constants.FALSE);
+    dataSourceProperties.setProperty(Constants.SERVER_TIMEZONE,Constants.UTC);
+    dataSourceProperties.setProperty(Constants.CONNECTION_COLLATION,Constants.utf8mb4_unicode_ci);
+    dataSourceProperties.setProperty(Constants.USE_SSL,Constants.FALSE);
+    dataSourceProperties.setProperty(Constants.AUTO_RECONNECT,Constants.TRUE);
 
     final Map<String, Object> connectionProperties = new HashMap<String, Object>();
 
-    connectionProperties.put("poolName", "pre-conductor");
-    connectionProperties.put("maxPoolSize", 100);
-    connectionProperties.put("maxLifetime", Duration.ofMinutes(5).toMillis());
-    connectionProperties.put("connectionInitSql", "set character_set_client = utf8mb4;");
-    connectionProperties.put("dataSourceProperties", dataSourceProperties);
+    connectionProperties.put(Constants.POOL_NAME, Constants.PRE_CONDUCTOR);
+    connectionProperties.put(Constants.MAX_POOL_SIZE, Integer.parseInt(Constants._100));
+    connectionProperties.put(Constants.MAX_LIFETIME, Duration.ofMinutes(5).toMillis());
+    connectionProperties.put(Constants.CONNECTION_INIT_SQL, Constants.CONNECTION_INIT_SQL_VALUE);
+    connectionProperties.put(Constants.DATASOURCE_PROPERTIES, dataSourceProperties);
 
     final DataSourceConfig serviceConfig = new DataSourceConfig(connectionProperties);
 

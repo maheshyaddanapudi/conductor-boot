@@ -199,7 +199,7 @@ public class OAuthUserActionService {
 				return "Invalid Client Mapping - NOT allowed to map to different client.";
 		}
 		else
-			return "User NOT found.";
+			return Constants.USER_NOT_FOUND;
 	}
 	
 	
@@ -225,7 +225,7 @@ public class OAuthUserActionService {
 				return "Invalid Client Mapping - NOT allowed to map to different client.";
 		}
 		else
-			return "User NOT found.";
+			return Constants.USER_NOT_FOUND;
 	}
 	
 	public String deleteExistingUser(String clientId, String username)
@@ -247,7 +247,7 @@ public class OAuthUserActionService {
 				return "Invalid Client Mapping - NOT allowed to map to different client.";
 		}
 		else
-			return "User NOT found.";
+			return Constants.USER_NOT_FOUND;
 		
 		return null == this.userRepository.findByUsername(username) ? null : "User Not Deleted.";
 	

@@ -42,9 +42,9 @@ public class EmbeddedWebSecurityConfiguration extends WebSecurityConfigurerAdapt
 				.authenticationEntryPoint(
 						(request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
 				.and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/**").permitAll()
-				.antMatchers("/oauth/**").permitAll()
-				.antMatchers("/api/**").authenticated()
+				.antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
+				.antMatchers(Constants.GENERIC_OAUTH_URL).permitAll()
+				.antMatchers(Constants.GENERIC_API_URL).authenticated()
 				.anyRequest().authenticated()
 				.and()
 				.httpBasic();

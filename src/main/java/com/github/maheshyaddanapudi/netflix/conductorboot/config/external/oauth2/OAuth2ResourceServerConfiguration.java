@@ -66,7 +66,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
                 for(String aHTTPMethod: aResourceRoleMapping.getHttp_methods()) {
 
                     switch(aHTTPMethod) {
-                        case "GET":
+                        case Constants.GET:
                             http.authorizeRequests()
                                     .antMatchers(HttpMethod.GET,
                                             aResourceRoleMapping.getEndpoint()) .hasAnyAuthority(allowedRoles);
@@ -77,7 +77,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
                                     + "\n\t Mapped Roles: " + Arrays.asList(aResourceRoleMapping.getRoles()).toString()
                                     + "\n############################## OAUTH2 API Security Mapping - END ######################################\n\n";
                             break;
-                        case "POST":
+                        case Constants.POST:
                             http.authorizeRequests()
                                     .antMatchers(HttpMethod.POST,
                                             aResourceRoleMapping.getEndpoint()) .hasAnyAuthority(allowedRoles);
@@ -87,7 +87,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
                                     + "\n\t Mapped Roles: " + Arrays.asList(aResourceRoleMapping.getRoles()).toString()
                                     + "\n############################## OAUTH2 API Security Mapping - END ######################################\n\n";
                             break;
-                        case "PUT":
+                        case Constants.PUT:
                             http.authorizeRequests()
                                     .antMatchers(HttpMethod.PUT,
                                             aResourceRoleMapping.getEndpoint()) .hasAnyAuthority(allowedRoles);
@@ -97,7 +97,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
                                     + "\n\t Mapped Roles: " + Arrays.asList(aResourceRoleMapping.getRoles()).toString()
                                     + "\n############################## OAUTH2 API Security Mapping - END ######################################\n\n";
                             break;
-                        case "PATCH":
+                        case Constants.PATCH:
                             http.authorizeRequests()
                                     .antMatchers(HttpMethod.PATCH,
                                             aResourceRoleMapping.getEndpoint()) .hasAnyAuthority(allowedRoles);
@@ -107,7 +107,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
                                     + "\n\t Mapped Roles: " + Arrays.asList(aResourceRoleMapping.getRoles()).toString()
                                     + "\n############################## OAUTH2 API Security Mapping - END ######################################\n\n";
                             break;
-                        case "DELETE":
+                        case Constants.DELETE:
                             http.authorizeRequests()
                                     .antMatchers(HttpMethod.DELETE,
                                             aResourceRoleMapping.getEndpoint()) .hasAnyAuthority(allowedRoles);
@@ -134,7 +134,7 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
         }
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
                 .anyRequest().authenticated()
                 .and().cors().disable().httpBasic().disable()
                 .exceptionHandling()

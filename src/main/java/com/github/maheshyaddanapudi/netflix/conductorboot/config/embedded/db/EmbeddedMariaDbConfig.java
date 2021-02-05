@@ -54,7 +54,7 @@ public class EmbeddedMariaDbConfig {
 	@Value("${mariadb4j.connect.timeout:31536000}")
 	public String connectTimeout;
 	
-    @Bean("mariaDB4jSpringService")
+    @Bean(Constants.MARIADB4J_SPRING_SERVICE)
     public MariaDB4jSpringService mariaDB4jSpringService() {
 
     	logger.info("Creating MariaDB4JSpringService.");
@@ -106,8 +106,8 @@ public class EmbeddedMariaDbConfig {
         return mariaDB4jSpringService;
     }
 
-    @Bean("datasource")
-    @DependsOn("mariaDB4jSpringService")
+    @Bean(Constants.DATASOURCE)
+    @DependsOn(Constants.MARIADB4J_SPRING_SERVICE)
     public DataSource dataSource(MariaDB4jSpringService mariaDB4jSpringService,
                           @Value("${spring.datasource.name:conductor}") String databaseName,
                           @Value("${spring.datasource.username:conductor}") String datasourceUsername,
@@ -135,24 +135,24 @@ public class EmbeddedMariaDbConfig {
 
 		final Properties dataSourceProperties = new Properties();
 
-		dataSourceProperties.setProperty("poolName", "pre-conductor");
-		dataSourceProperties.setProperty("maxLifetime", String.valueOf(Duration.ofMinutes(5).toMillis()));
-		dataSourceProperties.setProperty("connectionInitSql", "set character_set_client = utf8mb4;");
-		dataSourceProperties.setProperty("driverClassName", datasourceDriver);
+		dataSourceProperties.setProperty(Constants.POOL_NAME, Constants.PRE_CONDUCTOR);
+		dataSourceProperties.setProperty(Constants.MAX_LIFETIME, String.valueOf(Duration.ofMinutes(5).toMillis()));
+		dataSourceProperties.setProperty(Constants.CONNECTION_INIT_SQL, Constants.CONNECTION_INIT_SQL_VALUE);
+		dataSourceProperties.setProperty(Constants.DRIVER_CLASS_NAME, datasourceDriver);
 		dataSourceProperties.setProperty("jdbcUrl", databaseUrl);
 		dataSourceProperties.setProperty("username", datasourceUsername);
 		dataSourceProperties.setProperty("password", datasourcePassword);
-		dataSourceProperties.setProperty("maximumPoolSize", "100");
-		dataSourceProperties.setProperty("minimumIdle", "2");
-		dataSourceProperties.setProperty("dataSource.cachePrepStmts","true");
-		dataSourceProperties.setProperty("dataSource.prepStmtCacheSize", "256");
-		dataSourceProperties.setProperty("dataSource.prepStmtCacheSqlLimit", "2048");
-		dataSourceProperties.setProperty("dataSource.useServerPrepStmts","true");
-		dataSourceProperties.setProperty("dataSource.useLegacyDatetimeCode","false");
-		dataSourceProperties.setProperty("dataSource.serverTimezone","UTC");
-		dataSourceProperties.setProperty("dataSource.connectionCollation","utf8mb4_unicode_ci");
-		dataSourceProperties.setProperty("dataSource.useSSL","false");
-		dataSourceProperties.setProperty("dataSource.autoReconnect","true");
+		dataSourceProperties.setProperty(Constants.MAX_POOL_SIZE, Constants._100);
+		dataSourceProperties.setProperty(Constants.MIN_IDLE, Constants._2);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.CACHE_PREP_STMTS,Constants.TRUE);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.PREP_STMT_CACHE_SIZE, Constants._256);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.PREP_STMT_CACHE_SQL_LIMIT, Constants._2048);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.USER_SERVER_PREP_STMTS,Constants.TRUE);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.USE_LEGACY_DATETIME_CODE,Constants.FALSE);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.SERVER_TIMEZONE,Constants.UTC);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.CONNECTION_COLLATION,Constants.utf8mb4_unicode_ci);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.USE_SSL,Constants.FALSE);
+		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.AUTO_RECONNECT,Constants.TRUE);
 
 		final HikariConfig hikariConfig = new HikariConfig(dataSourceProperties);
 

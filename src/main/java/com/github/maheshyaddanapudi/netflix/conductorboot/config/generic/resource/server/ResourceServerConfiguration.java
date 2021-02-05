@@ -140,8 +140,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	}
 		
     http.authorizeRequests()
-    	.antMatchers(HttpMethod.GET, "/**").permitAll()
-		.antMatchers("/api/**").authenticated()
+    	.antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
+		.antMatchers(Constants.GENERIC_API_URL).authenticated()
     	.anyRequest().authenticated()
 		.and().cors().disable().httpBasic().disable()
 				.exceptionHandling()
@@ -153,7 +153,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-		resources.resourceId("USER_ADMIN_RESOURCE").tokenStore(tokenStore);
+		resources.resourceId(Constants.USER_ADMIN_RESOURCE).tokenStore(tokenStore);
 	}
 
 }

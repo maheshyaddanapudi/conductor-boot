@@ -1,5 +1,6 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.env;
 
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class EnvironmentVariablesToSystemPropertiesMappingConfiguration {
 	@Value("${ELASTICSEARCH_PORT:0}")
 	public int ELASTICSEARCH_PORT;
 
+	@Value("${ELASTICSEARCH_URL:HTTP://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}")
+	public String ELASTICSEARCH_URL;
+
 	public void mapEnvToProp() {
 
 		logger.info("Mapping Spring Boot properties to System Properties started.");
@@ -55,11 +59,9 @@ public class EnvironmentVariablesToSystemPropertiesMappingConfiguration {
 		{
 			logger.info("Elasticsearch URL is being configured.");
 
-			String url = "http://"+ELASTICSEARCH_HOST+":"+ELASTICSEARCH_PORT;
+			System.setProperty(Constants.WORKFLOW_ELASTICSEARCH_URL, ELASTICSEARCH_URL);
 
-			System.setProperty("workflow.elasticsearch.url", url);
-
-			logger.info("Elasticsearch URL is configured to : " + url);
+			logger.info("Elasticsearch URL is configured to : " + ELASTICSEARCH_URL);
 		}
 		else
 			logger.warn("Elasticsearch properties not found. Assuming Embedded Elasticsearch from Integrated Conductor Server will be used.");

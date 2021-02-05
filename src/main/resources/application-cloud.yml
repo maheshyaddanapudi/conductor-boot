@@ -1,15 +1,6 @@
 server:
   port: 8080
   use-forward-headers: true
-  ssl:
-    key-store-type: PKCS12
-    # The path to the keystore containing the certificate
-    key-store: classpath:keystore/my.p12
-    # The password used to generate the certificate
-    key-store-password: conductor
-    # The alias mapped to the certificate
-    key-alias: my
-    enabled: false
 
 spring:
   liquibase:

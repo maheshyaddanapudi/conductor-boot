@@ -3,7 +3,7 @@ version: '2.2'
 services:
   elasticsearch:
     image: elasticsearch:5.6
-    restart: always
+    restart: on-failure
     networks:
       conductor-boot-nw:
         aliases:
@@ -21,7 +21,7 @@ services:
     #- es_data:/var/lib/elasticsearch
   database:
     image: mysql:5.7
-    restart: always
+    restart: on-failure
     networks:
       conductor-boot-nw:
         aliases:
@@ -71,10 +71,12 @@ services:
     image: conductor-boot:latest
     build:
       context: .
-    restart: always
+    restart: on-failure
     depends_on:
-      - database
-      - elasticsearch
+      database:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
     networks:
       conductor-boot-nw:
         aliases:

@@ -32,9 +32,9 @@ public class CustomOauth2RequestFactory extends DefaultOAuth2RequestFactory {
 	@Override
 	public TokenRequest createTokenRequest(Map<String, String> requestParameters,
 			ClientDetails authenticatedClient) {
-		if (requestParameters.get("grant_type").equals("refresh_token")) {
+		if (requestParameters.get(Constants.GRANT_TYPE).equals(Constants.REFRESH_TOKEN)) {
 			OAuth2Authentication authentication = tokenStore.readAuthenticationForRefreshToken(
-					tokenStore.readRefreshToken(requestParameters.get("refresh_token")));
+					tokenStore.readRefreshToken(requestParameters.get(Constants.REFRESH_TOKEN)));
 			SecurityContextHolder.getContext()
 					.setAuthentication(new UsernamePasswordAuthenticationToken(authentication.getName(), null,
 							userDetailsService.loadUserByUsername(authentication.getName()).getAuthorities()));
