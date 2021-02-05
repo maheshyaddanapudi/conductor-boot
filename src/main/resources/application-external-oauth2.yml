@@ -1,8 +1,10 @@
 OAUTH2_HOST: github.maheshyaddanapudi.com
+OAUTH2_USER_INFO_URL: https://${OAUTH2_HOST}/oauth/token
+
 oauth:
   security: EXTERNAL
 
 security:
   oauth2:
     resource:
-      userInfoUri: https://$OAUTH2_HOST/oauth/token
+      userInfoUri: ${OAUTH2_USER_INFO_URL}

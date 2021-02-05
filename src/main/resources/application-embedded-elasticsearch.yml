@@ -1,5 +1,7 @@
 ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
+ELASTICSEARCH_URL: http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
+ELASTICSEARCH_HEALTH_STATUS_COLOR: yellow
 
 # Use embedded/persistence to have a common persistence location for all embedded components.
 # Default is NONE
@@ -29,7 +31,7 @@ workflow:
   elasticsearch:
     cluster:
       health:
-        color: yellow
+        color: ${ELASTICSEARCH_HEALTH_STATUS_COLOR}
     version: 5
     instanceType: EXTERNAL
     url: http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}

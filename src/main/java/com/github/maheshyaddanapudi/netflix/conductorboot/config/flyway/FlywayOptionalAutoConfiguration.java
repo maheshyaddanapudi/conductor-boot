@@ -1,6 +1,7 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.flyway;
 
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import org.apache.tomcat.util.bcel.Const;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +17,11 @@ public class FlywayOptionalAutoConfiguration {
     @Autowired
     DataSource dataSource;
 
-    @Bean(initMethod = "migrate")
+    @Bean(initMethod = Constants.MIGRATE)
     public Flyway flyway() {
         Flyway flyway = new Flyway();
         flyway.setValidateOnMigrate(false);
-        flyway.setBaselineVersionAsString("0");
+        flyway.setBaselineVersionAsString(Constants.ZERO);
         flyway.setBaselineOnMigrate(true);
         flyway.setDataSource(dataSource);
         return flyway;
