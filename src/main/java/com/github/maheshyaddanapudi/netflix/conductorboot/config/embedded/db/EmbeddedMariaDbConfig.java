@@ -4,16 +4,19 @@ import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
+import java.time.Duration;
+import java.util.Properties;
 
 @Configuration
 @Profile(Constants.MARIADB4J)
@@ -129,13 +132,32 @@ public class EmbeddedMariaDbConfig {
 	    System.setProperty(Constants.FLYWAY_IGNORE_MISSING_MIGRATIONS, Constants.TRUE);
 
 		logger.info("Building Embedded MariaDB Datasource.");
+
+		final Properties dataSourceProperties = new Properties();
+
+		dataSourceProperties.setProperty("poolName", "pre-conductor");
+		dataSourceProperties.setProperty("maxLifetime", String.valueOf(Duration.ofMinutes(5).toMillis()));
+		dataSourceProperties.setProperty("connectionInitSql", "set character_set_client = utf8mb4;");
+		dataSourceProperties.setProperty("driverClassName", datasourceDriver);
+		dataSourceProperties.setProperty("jdbcUrl", databaseUrl);
+		dataSourceProperties.setProperty("username", datasourceUsername);
+		dataSourceProperties.setProperty("password", datasourcePassword);
+		dataSourceProperties.setProperty("maximumPoolSize", "10");
+		dataSourceProperties.setProperty("minimumIdle", "2");
+		dataSourceProperties.setProperty("dataSource.cachePrepStmts","true");
+		dataSourceProperties.setProperty("dataSource.prepStmtCacheSize", "256");
+		dataSourceProperties.setProperty("dataSource.prepStmtCacheSqlLimit", "2048");
+		dataSourceProperties.setProperty("dataSource.useServerPrepStmts","true");
+		dataSourceProperties.setProperty("dataSource.useLegacyDatetimeCode","false");
+		dataSourceProperties.setProperty("dataSource.serverTimezone","UTC");
+		dataSourceProperties.setProperty("dataSource.connectionCollation","utf8mb4_unicode_ci");
+		dataSourceProperties.setProperty("dataSource.useSSL","false");
+		dataSourceProperties.setProperty("dataSource.autoReconnect","true");
+
+		final HikariConfig hikariConfig = new HikariConfig(dataSourceProperties);
+
+		final HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 	    
-        return DataSourceBuilder
-                .create()
-                .username(datasourceUsername)
-                .password(datasourcePassword)
-                .url(databaseUrl)
-                .driverClassName(datasourceDriver)
-                .build();
+        return hikariDataSource;
     }
 }

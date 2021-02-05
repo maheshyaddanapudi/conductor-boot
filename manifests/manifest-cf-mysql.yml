@@ -1,0 +1,10 @@
+---
+applications:
+  - name: conductor-boot
+    memory: 2048M
+    random-route: true
+    path: ../target/conductor-boot-2.30.4.jar
+    env:
+      SPRING_PROFILES_ACTIVE: cloud,cf-mysql,embedded-oauth2,security,conductor
+    services:
+      - cf-mysql-service
