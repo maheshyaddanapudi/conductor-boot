@@ -294,8 +294,9 @@ Also the below mentioned paths / volumes can be mounted to docker container for 
     ELASTICSEARCH_RESOURCE_DIR /appln/bin/elasticsearch
     MARIADB4J_DIR /appln/data/mariadb4j
 
+## Run Conductor Boot : Docker Compose
 
-To run the docker-compose : To externalize database and elastisearch into different containters, using their corresponding official dockerhub images.
+To run the docker-compose : For externalizing database and elastisearch into different containters, using their corresponding official dockerhub images.
 
     docker-compose build
     docker-compose up or docker-compose -d (For deamonizing the processes)
@@ -317,6 +318,16 @@ For mapping volumes i.e. having persistent container data, follow these steps.
     2) Uncomment the volumes section under mysql & elasticsearch and the root volumes section.
 
 Also, the database can be swapped from mysql:5.7 to mariadb:latest if desired (in docker-compose.yml).
+
+## Run Conductor Boot : Pivotal Cloud Foundry
+
+    1) Deploy basic profile
+
+        cf push -f manifests/manifest.yml
+
+    2) Deploy cf-mysql profile : For PCF MySQL as Datasource i.e. binding Database service "cf-mysql-service"
+
+        cf push -f manifests/manifest-cf-mysql.yml
 
 ## Authentication Process
 
