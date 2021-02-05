@@ -89,8 +89,7 @@ services:
       MYSQL_DATABASE: conductor
       MYSQL_USER: conductor
       MYSQL_PASSWORD: Conductor@1234
-      ELASTICSEARCH_HOST: elasticsearch
-      ELASTICSEARCH_PORT: 9200
+      ELASTICSEARCH_URL: http://elasticsearch:9200
       SPRING_PROFILES_ACTIVE: basic,mysql,external-elasticsearch,embedded-oauth2,security,conductor
     healthcheck:
       test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8080/api/health"]

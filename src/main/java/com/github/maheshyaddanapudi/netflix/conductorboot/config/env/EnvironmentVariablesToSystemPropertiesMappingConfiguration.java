@@ -24,13 +24,13 @@ public class EnvironmentVariablesToSystemPropertiesMappingConfiguration {
 	@Autowired
 	ApplicationContext ctx;
 
-	@Value("${ELASTICSEARCH_HOST:elasticsearch}")
+	@Value("${ELASTICSEARCH_HOST:localhost}")
 	public String ELASTICSEARCH_HOST;
 
 	@Value("${ELASTICSEARCH_PORT:0}")
 	public int ELASTICSEARCH_PORT;
 
-	@Value("${ELASTICSEARCH_URL:HTTP://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}")
+	@Value("${ELASTICSEARCH_URL:http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}}")
 	public String ELASTICSEARCH_URL;
 
 	public void mapEnvToProp() {
