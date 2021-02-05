@@ -1,7 +1,6 @@
 ELASTICSEARCH_HOST: localhost
 ELASTICSEARCH_PORT: 9200
 ELASTICSEARCH_URL: http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
-ELASTICSEARCH_HEALTH_STATUS_COLOR: yellow
 ELASTICSEARCH_VERSION: 5
 
 elasticsearch:
@@ -11,7 +10,7 @@ workflow:
   elasticsearch:
     cluster:
       health:
-        color: ${ELASTICSEARCH_HEALTH_STATUS_COLOR}
+        color: yellow
     version: ${ELASTICSEARCH_VERSION}
     instanceType: EXTERNAL
     index:
