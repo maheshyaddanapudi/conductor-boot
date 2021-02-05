@@ -105,7 +105,7 @@ public class Constants {
     public static final String USE_SSL = " useSSL";
     public static final String AUTO_RECONNECT = "autoReconnect";
     public static final String POOL_NAME = "poolName";
-    public static final String MAX_POOL_SIZE = "maxPoolSize";
+    public static final String MAX_POOL_SIZE = "maximumPoolSize";
     public static final String MIN_IDLE = "minimumIdle";
     public static final String MAX_LIFETIME = "maxLifetime";
     public static final String DATASOURCE_PROPERTIES = "dataSourceProperties";
