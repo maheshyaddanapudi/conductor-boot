@@ -20,7 +20,7 @@ import java.util.Properties;
 public class MySQLDbConfig {
 
 	private final Logger logger = LoggerFactory.getLogger(MySQLDbConfig.class.getSimpleName());
-	
+
 	@Bean(Constants.DATASOURCE)
     public DataSource dataSource(
                           @Value("${spring.datasource.username:conductor}") String datasourceUsername,

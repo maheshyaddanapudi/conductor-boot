@@ -31,6 +31,8 @@ logging:
   level:
     root: INFO
     org.zalando.logbook: TRACE
+  pattern:
+    console: '[%p  ] %d{yyyy-MM-dd HH:mm:ss,SSS} %M - %m%n'
 
 logbook:
   filter:
