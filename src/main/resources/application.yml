@@ -3,7 +3,7 @@ spring:
     active:
       - basic
       - embedded-elasticsearch
-      - mariadb4j
+      - maridb4j
       - conductor
       - embedded-oauth2
       - security
