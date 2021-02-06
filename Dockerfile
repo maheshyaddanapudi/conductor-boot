@@ -36,7 +36,7 @@ USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
-  && apt-get -y -qq install software-properties-common libaio1 libaio-dev libncurses5 openssl sudo vim curl wget net-tools iputils-ping
+  && apt-get -y -qq install libaio1 libaio-dev libncurses5 openssl sudo vim curl wget net-tools iputils-ping
 
 # Setting JAVA_HOME for performing Maven build.
 ENV JAVA_HOME /usr/local/openjdk-8
