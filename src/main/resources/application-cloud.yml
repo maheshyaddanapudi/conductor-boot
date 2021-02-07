@@ -10,6 +10,13 @@ spring:
 
 awaitTermination: 120
 
+logging:
+  level:
+    root: INFO
+    org.zalando.logbook: TRACE
+  pattern:
+    console: '[%p ] %d{yyyy-MM-dd HH:mm:ss,SSS} %M - %m%n'
+
 # Deprecated
 security:
   basic:
@@ -17,11 +24,6 @@ security:
 
 oauth:
   security: NONE
-
-logging:
-  level:
-    root: INFO
-    org.zalando.logbook: TRACE
 
 logbook:
   filter:
