@@ -1,0 +1,156 @@
+version: '2.2'
+
+services:
+  elasticsearch:
+    image: elasticsearch:5.6
+    restart: on-failure
+    networks:
+      conductor-boot-nw:
+        aliases:
+          - elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    healthcheck:
+      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:9200/_cat/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+    mem_limit: "3096000000"
+    volumes:
+      - es_data:/var/lib/elasticsearch
+  database:
+    image: mysql:5.7
+    restart: on-failure
+    networks:
+      conductor-boot-nw:
+        aliases:
+          - mysql_db
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: Root@1234
+      MYSQL_DATABASE: conductor
+      MYSQL_USER: conductor
+      MYSQL_PASSWORD: Conductor@1234
+      MYSQL_INITDB_SKIP_TZINFO: NONE
+      LOGSPOUT: ignore
+    healthcheck:
+      test: [ "CMD-SHELL", 'mysqladmin ping' ]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+    mem_limit: "512000000"
+    volumes:
+      - db_data:/var/lib/mysql
+  conductor-boot:
+    image: conductor-boot:latest
+    build:
+      context: .
+    restart: on-failure
+    depends_on:
+      database:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      conductor-boot-nw:
+        aliases:
+          - conductor-boot
+    ports:
+      - 8080:8080
+    environment:
+      MYSQL_DATABASE_HOST: mysql_db
+      MYSQL_DATABASE_PORT: 3306
+      MYSQL_DATABASE: conductor
+      MYSQL_USER: conductor
+      MYSQL_PASSWORD: Conductor@1234
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      SPRING_PROFILES_ACTIVE: basic,mysql,external-elasticsearch,embedded-oauth2,security,conductor
+    healthcheck:
+      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+    mem_limit: "1536000000"
+  kibana:
+    image: kibana:5.6.16
+    restart: on-failure
+    links:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      LOGSPOUT: ignore
+    ports:
+      - 5601:5601
+    healthcheck:
+      test: [ "CMD", "curl","-I" ,"-XGET", "http://localhost:5601/status" ]
+      interval: 60s
+      timeout: 30s
+      retries: 15
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      conductor-boot:
+        condition: service_healthy
+    networks:
+      conductor-boot-nw:
+        aliases:
+          - conductor-boot
+  logstash:
+    image: logstash:5.6.8
+    restart: on-failure
+    environment:
+      STDOUT: "true"
+      LOGSPOUT: ignore
+      http.host: 0.0.0.0
+    ports:
+      - 5000:5000
+      - 9600:9600
+    links:
+      - elasticsearch
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    command: 'logstash -e "input { udp { port => 5000 } } filter { grok { match => { message => \"\A\[%{LOGLEVEL:LOG_LEVEL}%{SPACE}]%{SPACE}%{TIMESTAMP_ISO8601:LOG_TIMESTAMP}%{SPACE}%{NOTSPACE:JAVA_CLASS}%{SPACE}-%{SPACE}%{GREEDYDATA:LOG_MESSAGE}\" } } } output { elasticsearch { hosts => elasticsearch } }"'
+    networks:
+      conductor-boot-nw:
+        aliases:
+          - conductor-boot
+  logspout:
+    image: gliderlabs/logspout:v3
+    restart: on-failure
+    command: 'udp://logstash:5000'
+    links:
+      - logstash
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock'
+    environment:
+      LOGSPOUT: ignore
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      kibana:
+        condition: service_started
+      logstash:
+        condition: service_started
+    networks:
+      conductor-boot-nw:
+        aliases:
+          - conductor-boot
+volumes:
+  es_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/container/persistence/elasticsearch
+      o: bind
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/container/persistence/mysql
+      o: bind
+networks:
+  conductor-boot-nw:
