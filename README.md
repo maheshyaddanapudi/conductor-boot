@@ -5,9 +5,9 @@
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
 
-Before starting, for details on Netflix Conductor, refer to <a href="http://netflix.github.io/conductor/">Conductor Documentation</a>
+Before starting, for details on Netflix Conductor, refer to <a href="http://netflix.github.io/conductor/" target="_blank">Conductor Documentation</a>
 
-##### The README covers on the operational part of Conductor Boot. For more details on the code level walkthrough / developer point of view, please refer to <a href="https://zzzmahesh.medium.com/netflix-conductor-spring-boot-wrapper-45960a3e36f6">NETFLIX CONDUCTOR — SPRING BOOT WRAPPER</a>
+##### The README covers on the operational part of Conductor Boot. For more details on the code level walkthrough / developer point of view, please refer to <a href="https://zzzmahesh.medium.com/netflix-conductor-spring-boot-wrapper-45960a3e36f6" target="_blank">NETFLIX CONDUCTOR — SPRING BOOT WRAPPER</a>
 
 ##### Note
 
