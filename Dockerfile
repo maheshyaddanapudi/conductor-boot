@@ -1,4 +1,20 @@
-FROM maven:3.6.3-jdk-8
+FROM maven:3.6.3-jdk-8 as builder
+
+# Setting JAVA_HOME for performing Maven build.
+ENV JAVA_HOME /usr/local/openjdk-8
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# Creating base directory
+RUN mkdir /tmp/conductor-boot
+
+COPY pom.xml /tmp/conductor-boot/
+COPY src /tmp/conductor-boot/src
+
+# Building the executable.
+RUN cd /tmp/conductor-boot \
+  && mvn clean install -Dmaven.test.skip=true -q
+
+FROM openjdk:8-jdk as server
 
 MAINTAINER zzzmahesh@gmail.com
 
@@ -26,7 +42,7 @@ ENV ADFS_ACCESS_TOKEN_URL https://$ADFS_HOST/adfs/oauth2/token
 ENV ADFS_USER_INFO_URL https://$ADFS_HOST/adfs/oauth2/authorize
 ENV OAUTH2_USER_INFO_URL https://$OAUTH2_HOST/oauth/token
 ENV SPRING_PROFILES_ACTIVE basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
-ENV CONDUCTOR_VERSION 2.30.4
+ENV CONDUCTOR_VERSION 2.31.0
 
 # Switching to root working  directory
 WORKDIR /
@@ -36,11 +52,7 @@ USER root
 
 # Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
-  && apt-get -y -qq install libaio1 libaio-dev libncurses5 openssl sudo vim curl wget net-tools iputils-ping
-
-# Setting JAVA_HOME for performing Maven build.
-ENV JAVA_HOME /usr/local/openjdk-8
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
+  && apt-get -y -qq install libaio1 libaio-dev libncurses5 openssl sudo
 
 # Creating base directory
 RUN mkdir /appln
@@ -61,20 +73,11 @@ RUN sed -i.bkp -e \
 # Taking the ownership of working directories
 RUN chown -R conductor:conductor /appln
 
-# Copying the necessary src for build.
-COPY src /appln/tmp/conductor-boot/src
-COPY pom.xml /appln/tmp/conductor-boot/
-
 # Changing to the user conductor
 USER conductor
 
-# Building the executable.
-RUN cd /appln/tmp \
-  && cd conductor-boot \
-  && mvn clean install -q
-
 # Moving the executable / build to the run location
-RUN mv /appln/tmp/conductor-boot/target/conductor-boot*.jar /appln/bin/conductor
+COPY --from=builder /tmp/conductor-boot/target/conductor-boot*.jar /appln/bin/conductor/
 
 # Creating the startup script, by passing the env variables to run the jar. Logs are written directly to continer logs.
 RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
@@ -90,7 +93,7 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -DADFS_HOST=\$ADFS_HOST \
   -DADFS_USER_AUTHORIZATION_URL=\$ADFS_USER_AUTHORIZATION_URL \
   -DADFS_ACCESS_TOKEN_URL=\$ADFS_ACCESS_TOKEN_URL \
-  -DADFS_USER_INFO_URL=\%ADFS_USER_INFO_URL \
+  -DADFS_USER_INFO_URL=\$ADFS_USER_INFO_URL \
   -DOAUTH2_HOST=\$OAUTH2_HOST \
   -DOAUTH2_USER_INFO_URL=\$OAUTH2_USER_INFO_URL \
   -DMYSQL_DATABASE=\$MYSQL_DATABASE \
@@ -117,3 +120,4 @@ EXPOSE 8080
 # Enabling the startup
 CMD ["/appln/scripts/startup.sh"]
 ENTRYPOINT ["/bin/bash"]
+
