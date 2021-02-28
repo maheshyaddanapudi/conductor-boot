@@ -7,16 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.apache.http.conn.HttpHostConnectException;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.net.ConnectException;
+
 @ControllerAdvice
+@RestController
 public class RestResponseEntityExceptionHandler 
   extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value
-      = { HttpServerErrorException.InternalServerError.class, ZuulException.class , HttpHostConnectException.class})
+      = { HttpServerErrorException.InternalServerError.class, ZuulException.class , HttpHostConnectException.class, ConnectException.class})
     protected ResponseEntity<Object> handleConflict(
       RuntimeException ex, WebRequest request) {
 
