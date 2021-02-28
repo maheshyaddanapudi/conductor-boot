@@ -41,7 +41,7 @@ public class MySQLDbConfig {
 		final Properties dataSourceProperties = new Properties();
 
 		dataSourceProperties.setProperty(Constants.POOL_NAME, Constants.PRE_CONDUCTOR);
-		dataSourceProperties.setProperty(Constants.MAX_LIFETIME, String.valueOf(Duration.ofMinutes(5).toMillis()));
+		dataSourceProperties.setProperty(Constants.MAX_LIFETIME, String.valueOf(Duration.ofMinutes(15).toMillis()));
 		dataSourceProperties.setProperty(Constants.CONNECTION_INIT_SQL, Constants.CONNECTION_INIT_SQL_VALUE);
 		dataSourceProperties.setProperty(Constants.DRIVER_CLASS_NAME, datasourceDriver);
 		dataSourceProperties.setProperty("jdbcUrl", datasourceUrl);
@@ -49,6 +49,7 @@ public class MySQLDbConfig {
 		dataSourceProperties.setProperty("password", datasourcePassword);
 		dataSourceProperties.setProperty(Constants.MAX_POOL_SIZE, Constants._100);
 		dataSourceProperties.setProperty(Constants.MIN_IDLE, Constants._2);
+		dataSourceProperties.setProperty(Constants.IDLE_TIMEOUT, String.valueOf(Duration.ofMinutes(10).toMillis()));
 		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.CACHE_PREP_STMTS,Constants.TRUE);
 		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.PREP_STMT_CACHE_SIZE, Constants._256);
 		dataSourceProperties.setProperty(Constants.dataSource + Constants.DOT + Constants.PREP_STMT_CACHE_SQL_LIMIT, Constants._2048);

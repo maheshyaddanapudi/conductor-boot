@@ -108,6 +108,7 @@ public class Constants {
     public static final String MAX_POOL_SIZE = "maximumPoolSize";
     public static final String MIN_IDLE = "minimumIdle";
     public static final String MAX_LIFETIME = "maxLifetime";
+    public static final String IDLE_TIMEOUT = "idleTimeout";
     public static final String DATASOURCE_PROPERTIES = "dataSourceProperties";
     public static final String DRIVER_CLASS_NAME = "driverClassName";
 
