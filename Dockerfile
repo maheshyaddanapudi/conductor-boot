@@ -42,6 +42,7 @@ ENV ADFS_ACCESS_TOKEN_URL https://$ADFS_HOST/adfs/oauth2/token
 ENV ADFS_USER_INFO_URL https://$ADFS_HOST/adfs/oauth2/authorize
 ENV OAUTH2_USER_INFO_URL https://$OAUTH2_HOST/oauth/token
 ENV SPRING_PROFILES_ACTIVE basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
+ENV USER_TIMEZONE IST
 ENV CONDUCTOR_VERSION 2.31.0
 
 # Switching to root working  directory
@@ -50,7 +51,7 @@ WORKDIR /
 # Starting up as root user
 USER root
 
-# Installing all the base necessary packages for build and execution of executables i.e. Java, Maven etc.
+# Installing all the base necessary packages for execution of embedded MariaDB4j i.e. Open SSL, libaio & libncurses5
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
   && apt-get -y -qq install libaio1 libaio-dev libncurses5 openssl sudo
 
@@ -84,6 +85,7 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   && echo "cd /appln/bin/conductor" >> /appln/scripts/startup.sh \
   && echo "java \
   -Dspring.profiles.active=\$SPRING_PROFILES_ACTIVE \
+  -Duser.timezone=\$USER_TIMEZONE \
   -DELASTICSEARCH_HOST=\$ELASTICSEARCH_HOST \
   -DELASTICSEARCH_PORT=\$ELASTICSEARCH_PORT \
   -DELASTICSEARCH_URL=\$ELASTICSEARCH_URL \
@@ -107,12 +109,9 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -jar conductor-boot-$CONDUCTOR_VERSION.jar" >> /appln/scripts/startup.sh
 
 # Owning the executable scripts
-RUN sudo chown -R conductor:conductor /appln/scripts /appln/bin
-RUN sudo chmod -R +x /appln/scripts /appln/bin
-RUN sudo chmod -R +w /appln/data
-
-# Removing the temp folder i.e. source code etc used for creating the executable / build.
-RUN sudo rm -rf /appln/tmp/* /tmp/* /appln/data/elasticsearch/* /appln/data/mariadb4j/*
+RUN sudo chown -R conductor:conductor /appln/scripts /appln/bin \
+    && sudo chmod -R +x /appln/scripts /appln/bin \
+    && sudo chmod -R +w /appln/data
 
 # Exposing the necessary ports
 EXPOSE 8080
@@ -120,4 +119,3 @@ EXPOSE 8080
 # Enabling the startup
 CMD ["/appln/scripts/startup.sh"]
 ENTRYPOINT ["/bin/bash"]
-
