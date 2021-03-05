@@ -30,7 +30,7 @@ public class EnvironmentVariablesToSystemPropertiesMappingConfiguration {
 	@Value("${ELASTICSEARCH_PORT:0}")
 	public int ELASTICSEARCH_PORT;
 
-	@Value("${ELASTICSEARCH_URL:http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}}")
+	@Value("${ELASTICSEARCH_URL:http://${ELASTICSEARCH_HOST:localhost}:${ELASTICSEARCH_PORT:0}}")
 	public String ELASTICSEARCH_URL;
 
 	public void mapEnvToProp() {
