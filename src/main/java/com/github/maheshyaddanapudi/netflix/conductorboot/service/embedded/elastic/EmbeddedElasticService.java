@@ -1,7 +1,8 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.service.embedded.elastic;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
 import org.springframework.stereotype.Service;
+
+import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
 
 @Service
 public class EmbeddedElasticService {

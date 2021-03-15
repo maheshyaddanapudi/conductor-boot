@@ -1,7 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.constants;
 
-import liquibase.pro.packaged.S;
-
 public class Constants {
 
     // General Constants
@@ -15,6 +13,9 @@ public class Constants {
     public static final String CONDUCTOR = "conductor";
     public static final String EMAIL = "email";
     public static final String ZERO = "0";
+
+    public static final String ROLES = "roles";
+    public static final String RESOURCE_ACCESS = "resource_access";
 
     public static final String GENERIC_ROOT_URL = "/**";
     public static final String GENERIC_OAUTH_URL = "/oauth/**";

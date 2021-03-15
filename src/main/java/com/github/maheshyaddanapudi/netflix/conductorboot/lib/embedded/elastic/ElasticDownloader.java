@@ -1,10 +1,7 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.apache.commons.io.FileUtils.forceMkdir;
+import static org.apache.commons.io.FileUtils.getFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +11,13 @@ import java.net.URLConnection;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.io.FileUtils.forceMkdir;
-import static org.apache.commons.io.FileUtils.getFile;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("deprecation")
 class ElasticDownloader {
     private static final Logger logger = LoggerFactory.getLogger(ElasticDownloader.class);
     private static final String ELS_PACKAGE_STATUS_FILE_SUFFIX = "-downloaded";

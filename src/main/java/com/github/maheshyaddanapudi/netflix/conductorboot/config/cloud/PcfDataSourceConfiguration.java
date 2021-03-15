@@ -1,8 +1,13 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.cloud;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.netflix.archaius.api.annotations.Configuration;
-import com.zaxxer.hikari.HikariDataSource;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.Cloud;
@@ -12,12 +17,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.netflix.archaius.api.annotations.Configuration;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @Profile(Constants.CF_MYSQL)

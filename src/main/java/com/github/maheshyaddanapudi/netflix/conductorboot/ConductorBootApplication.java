@@ -1,10 +1,8 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.EnvironmentVariablesToSystemPropertiesMappingConfiguration;
-import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.GracefulShutdown;
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
-import com.netflix.conductor.bootstrap.Main;
+import java.io.File;
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +26,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import java.io.File;
-import java.io.IOException;
+import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.EnvironmentVariablesToSystemPropertiesMappingConfiguration;
+import com.github.maheshyaddanapudi.netflix.conductorboot.config.env.GracefulShutdown;
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
+import com.netflix.conductor.bootstrap.Main;
 
 @SpringBootApplication
 @EnableZuulProxy

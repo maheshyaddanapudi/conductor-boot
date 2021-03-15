@@ -1,5 +1,4 @@
-OAUTH2_HOST: github.maheshyaddanapudi.com
-OAUTH2_USER_INFO_URL: https://${OAUTH2_HOST}/oauth/token
+OAUTH2_USER_INFO_URL: https://localhost:9990/oauth/userinfo
 
 oauth:
   security: EXTERNAL

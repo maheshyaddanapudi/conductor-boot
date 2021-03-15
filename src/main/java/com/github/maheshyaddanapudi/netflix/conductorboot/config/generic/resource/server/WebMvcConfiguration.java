@@ -1,7 +1,7 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.generic.resource.server;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.github.maheshyaddanapudi.netflix.conductorboot.modal.embedded.resource.server.CustomPrincipal;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,7 +14,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.github.maheshyaddanapudi.netflix.conductorboot.modal.embedded.resource.server.CustomPrincipal;
 
 @Configuration
 @Profile({Constants.EMBEDDED_OAUTH2, Constants.EXTERNAL_ADFS})

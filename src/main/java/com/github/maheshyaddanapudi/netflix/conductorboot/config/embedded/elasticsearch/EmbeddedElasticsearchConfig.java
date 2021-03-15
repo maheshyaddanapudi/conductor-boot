@@ -1,18 +1,5 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.embedded.elasticsearch;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
-import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.PopularProperties;
-import com.github.maheshyaddanapudi.netflix.conductorboot.service.embedded.elastic.EmbeddedElasticService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +7,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.EmbeddedElastic;
+import com.github.maheshyaddanapudi.netflix.conductorboot.lib.embedded.elastic.PopularProperties;
+import com.github.maheshyaddanapudi.netflix.conductorboot.service.embedded.elastic.EmbeddedElasticService;
 
 @Configuration
 @Profile(Constants.EMBEDDED_ELASTICSEARCH)

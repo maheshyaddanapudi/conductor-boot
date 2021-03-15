@@ -1,5 +1,22 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.controller.rest.embedded.oauth2;
 
+import java.security.Principal;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.db.entities.embedded.oauth2.OAuthClientDetails;
 import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.embedded.oauth2.CustomPrincipalJsonConverted;
@@ -8,21 +25,13 @@ import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.request.embedded.
 import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.response.embedded.oauth2.BaseResponseDTO;
 import com.github.maheshyaddanapudi.netflix.conductorboot.service.embedded.oauth2.OAuthUserActionService;
 import com.google.gson.Gson;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @Profile(Constants.EMBEDDED_OAUTH2)
 @RestController

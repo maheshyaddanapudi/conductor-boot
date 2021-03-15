@@ -1,7 +1,9 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.utils.embedded.resource.server;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.github.maheshyaddanapudi.netflix.conductorboot.modal.embedded.resource.server.CustomPrincipal;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,9 +12,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.github.maheshyaddanapudi.netflix.conductorboot.modal.embedded.resource.server.CustomPrincipal;
 
 @Profile(Constants.EMBEDDED_OAUTH2)
 public class CustomUserAuthenticationConverter implements UserAuthenticationConverter  {

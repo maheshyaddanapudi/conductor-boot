@@ -1,4 +1,4 @@
-package com.github.maheshyaddanapudi.netflix.conductorboot.config.generic.resource.server;
+package com.github.maheshyaddanapudi.netflix.conductorboot.config.external.adfs;
 
 import java.util.Arrays;
 
@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
@@ -15,23 +17,20 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.resource.server.ResourceRoleMappingDTO;
+import com.github.maheshyaddanapudi.netflix.conductorboot.service.external.adfs.AdfsUserInfoTokenServices;
 import com.google.gson.Gson;
 
 @Configuration
-@Profile({Constants.EMBEDDED_OAUTH2})
+@Profile({Constants.EXTERNAL_ADFS})
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+public class ExternalADFSResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 	
-	private Logger logger = LoggerFactory.getLogger(ResourceServerConfiguration.class);
-	
-	@Autowired
-	public TokenStore tokenStore;
+	private Logger logger = LoggerFactory.getLogger(ExternalADFSResourceServerConfiguration.class);
 	
 	@Value("${security.oauth2.resource.mapping}")
 	private String resourceMapping;
@@ -144,6 +143,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     http.authorizeRequests()
     	.antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
 		.antMatchers(Constants.GENERIC_API_URL).authenticated()
+		.antMatchers("/userinfo").authenticated()
     	.anyRequest().authenticated()
 		.and().cors().disable().httpBasic().disable()
 				.exceptionHandling()
@@ -153,9 +153,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 						(request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 	}
 
-	@Override
-	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-		resources.resourceId(Constants.USER_ADMIN_RESOURCE).tokenStore(tokenStore);
+	@Autowired
+	ResourceServerProperties sso;
+
+	@Bean
+	public ResourceServerTokenServices resourceServerTokenServices(){
+		return new AdfsUserInfoTokenServices(sso.getUserInfoUri(), sso.getClientId());
 	}
 
 }

@@ -1,9 +1,8 @@
 ADFS_CLIENT_ID: ABCD-1234_CLIENT
 ADFS_RESOURCE: ABCD-1234_RESOURCE
-ADFS_HOST: idm.github.maheshyaddanapudi.com
-ADFS_USER_AUTHORIZATION_URL: https://${ADFS_HOST}/adfs/oauth2/authorize
-ADFS_ACCESS_TOKEN_URL: https://${ADFS_HOST}/adfs/oauth2/token
-ADFS_USER_INFO_URL: https://${ADFS_HOST}/adfs/oauth2/authorize
+ADFS_USER_AUTHORIZATION_URL: https://adfs.example.com/adfs/oauth2/authorize
+ADFS_ACCESS_TOKEN_URL: https://adfs.example.com/adfs/oauth2/token
+ADFS_USER_INFO_URL: https://adfs.example.com/adfs/oauth2/authorize
 
 oauth:
   security: ADFS

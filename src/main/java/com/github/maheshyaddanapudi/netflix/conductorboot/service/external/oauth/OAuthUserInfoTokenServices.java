@@ -1,4 +1,4 @@
-package com.github.maheshyaddanapudi.netflix.conductorboot.service.external.adfs;
+package com.github.maheshyaddanapudi.netflix.conductorboot.service.external.oauth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,21 +31,22 @@ import org.springframework.util.Assert;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.external.adfs.ADFSToken;
+import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.external.oauth.OAuthToken;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-@Profile(Constants.EXTERNAL_ADFS)
-public class AdfsUserInfoTokenServices implements ResourceServerTokenServices {
+@Profile(Constants.EXTERNAL_OAUTH2)
+public class OAuthUserInfoTokenServices implements ResourceServerTokenServices {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     private final String userInfoEndpointUrl;
-    private final String clientId;
     private String tokenType = DefaultOAuth2AccessToken.BEARER_TYPE;
     private AuthoritiesExtractor authoritiesExtractor = new FixedAuthoritiesExtractor();
     private PrincipalExtractor principalExtractor = new FixedPrincipalExtractor();
 
-    public AdfsUserInfoTokenServices(String userInfoEndpointUrl, String clientId) {
+    public OAuthUserInfoTokenServices(String userInfoEndpointUrl) {
         this.userInfoEndpointUrl = userInfoEndpointUrl;
-        this.clientId = clientId;
     }
 
     public void setTokenType(String tokenType) {
@@ -83,24 +84,90 @@ public class AdfsUserInfoTokenServices implements ResourceServerTokenServices {
         try{
             Gson gson = new Gson();
             String mapDetails = gson.toJson(map);
-            ADFSToken adfsToken = gson.fromJson(mapDetails, ADFSToken.class);
-            if(null!=adfsToken.getRole())
+            OAuthToken oAuthToken = gson.fromJson(mapDetails, OAuthToken.class);
+            if(null!=oAuthToken.getRole())
             {
                 List<String> rolesList = new ArrayList<String>();
-                rolesList = Arrays.asList(adfsToken.getRole());
+                rolesList = Arrays.asList(oAuthToken.getRole());
                 for(String aRole: rolesList)
                 {
                     authorities.add(new SimpleGrantedAuthority(aRole));
                 }
             }
+            if(null!=oAuthToken.getRealm_access() && null!=oAuthToken.getRealm_access().getRoles())
+            {
+                List<String> rolesList = new ArrayList<String>();
+                if(oAuthToken.getRealm_access().getRoles().length > 0)
+                {
+                    rolesList = Arrays.asList(oAuthToken.getRealm_access().getRoles());
+                    if(null!= rolesList && !rolesList.isEmpty())
+                    {
+                        for(String aRole: rolesList)
+                        {
+                            authorities.add(new SimpleGrantedAuthority(aRole));
+                        }
+                    }
+                }
+            }
+            if(null!=map.get(Constants.RESOURCE_ACCESS))
+            {
+                JsonObject jsonObject = new JsonParser().parse(gson.toJson(map.get(Constants.RESOURCE_ACCESS))).getAsJsonObject();
+
+                for (Map.Entry<String, JsonElement> e : jsonObject.entrySet()) {
+                    JsonElement clientJsonElement = jsonObject.get(e.getKey());
+
+                    if(clientJsonElement.isJsonObject())
+                    {
+                        JsonObject clientJsonObject = clientJsonElement.getAsJsonObject();
+
+                        if(clientJsonObject.getAsJsonObject().has(Constants.ROLES))
+                        {
+                            JsonElement clientRolesJsonObject = clientJsonObject.get(Constants.ROLES);
+
+                            try{
+                                String roles = clientRolesJsonObject.getAsString();
+
+                                List<String> rolesList = new ArrayList<String>();
+                                if(roles.toString().split(Constants.COMMA).length > 0)
+                                {
+                                    rolesList = Arrays.asList(roles.toString().split(Constants.COMMA));
+                                    if(null!= rolesList && !rolesList.isEmpty())
+                                    {
+                                        for(String aRole: rolesList)
+                                        {
+                                            authorities.add(new SimpleGrantedAuthority(aRole));
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    rolesList.add(roles.toString());
+                                    if(null!= rolesList && !rolesList.isEmpty())
+                                    {
+                                        for(String aRole: rolesList)
+                                        {
+                                            authorities.add(new SimpleGrantedAuthority(aRole));
+                                        }
+                                    }
+                                }
+                            }
+                            catch (IllegalStateException ise)
+                            {
+                                //Do Nothing
+                            }
+
+                        }
+                    }
+                }
+            }
         }
         catch(Exception ex)
         {
-            logger.warn("Exception while decoding ADFS Token : \n"+ex.getMessage());
+            logger.warn("Exception while decoding OAuth Token : \n"+ex.getMessage());
         }
 
         OAuth2Request request = new OAuth2Request(
-                (Map)null, this.clientId, (Collection)null, true,
+                (Map)null, null, (Collection)null, true,
                 (Set)null, (Set)null, (String)null, (Set)null, (Map)null);
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(principal, "N/A", authorities);

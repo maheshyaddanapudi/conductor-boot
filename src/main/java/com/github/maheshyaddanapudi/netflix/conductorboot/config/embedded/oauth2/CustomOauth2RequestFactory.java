@@ -1,6 +1,7 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.embedded.oauth2;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +14,7 @@ import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-import java.util.Map;
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 
 @Profile(Constants.EMBEDDED_OAUTH2)
 public class CustomOauth2RequestFactory extends DefaultOAuth2RequestFactory {

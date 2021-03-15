@@ -1,5 +1,13 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.service.embedded.oauth2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
 import com.github.maheshyaddanapudi.netflix.conductorboot.db.entities.embedded.oauth2.OAuthClientDetails;
 import com.github.maheshyaddanapudi.netflix.conductorboot.db.entities.embedded.oauth2.OAuthRole;
@@ -9,13 +17,6 @@ import com.github.maheshyaddanapudi.netflix.conductorboot.db.repositories.embedd
 import com.github.maheshyaddanapudi.netflix.conductorboot.db.repositories.embedded.oauth2.UserRepository;
 import com.github.maheshyaddanapudi.netflix.conductorboot.utils.PasswordUtils;
 import com.github.maheshyaddanapudi.netflix.conductorboot.utils.StringHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 @Profile(Constants.EMBEDDED_OAUTH2)

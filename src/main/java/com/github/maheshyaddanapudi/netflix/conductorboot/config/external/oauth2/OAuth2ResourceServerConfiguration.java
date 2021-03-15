@@ -1,11 +1,15 @@
 package com.github.maheshyaddanapudi.netflix.conductorboot.config.external.oauth2;
 
-import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
-import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.resource.server.ResourceRoleMappingDTO;
-import com.google.gson.Gson;
+import java.util.Arrays;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
@@ -13,9 +17,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
+import com.github.maheshyaddanapudi.netflix.conductorboot.constants.Constants;
+import com.github.maheshyaddanapudi.netflix.conductorboot.dtos.internal.resource.server.ResourceRoleMappingDTO;
+import com.github.maheshyaddanapudi.netflix.conductorboot.service.external.oauth.OAuthUserInfoTokenServices;
+import com.google.gson.Gson;
 
 @Configuration
 @EnableResourceServer
@@ -142,5 +149,13 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .accessDeniedHandler(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+    }
+    
+    @Autowired
+    ResourceServerProperties sso;
+
+    @Bean
+    public ResourceServerTokenServices resourceServerTokenServices(){
+        return new OAuthUserInfoTokenServices(sso.getUserInfoUri());
     }
 }

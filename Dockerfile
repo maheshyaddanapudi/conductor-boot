@@ -29,18 +29,16 @@ ENV ELASTICSEARCH_URL http://$ELASTICSEARCH_HOST:$ELASTICSEARCH_PORT
 ENV WORKFLOW_ELASTICSEARCH_VERSION 5
 ENV ADFS_CLIENT_ID POPULATE_CLIENT_ID
 ENV ADFS_RESOURCE POPULATE_ADFS_RESOURCE
-ENV ADFS_HOST POPULATE_ADFS_HOST
-ENV OAUTH2_HOST POPULATE_EXTERNAL_OAUTH2_HOST
+ENV ADFS_USER_AUTHORIZATION_URL https://adfs.example.com/adfs/oauth2/authorize
+ENV ADFS_ACCESS_TOKEN_URL https://adfs.example.com/adfs/oauth2/token
+ENV ADFS_USER_INFO_URL https://adfs.example.com/adfs/oauth2/authorize
+ENV OAUTH2_USER_INFO_URL http://localhost:9990/oauth/userinfo
 ENV MYSQL_DATABASE conductor
 ENV MYSQL_USER conductor
 ENV MYSQL_PASSWORD conductor
 ENV MYSQL_DATABASE_HOST localhost
 ENV MYSQL_DATABASE_PORT 3306
 ENV MARIADB4J_DIR /appln/data/mariadb4j
-ENV ADFS_USER_AUTHORIZATION_URL https://$ADFS_HOST/adfs/oauth2/authorize
-ENV ADFS_ACCESS_TOKEN_URL https://$ADFS_HOST/adfs/oauth2/token
-ENV ADFS_USER_INFO_URL https://$ADFS_HOST/adfs/oauth2/authorize
-ENV OAUTH2_USER_INFO_URL https://$OAUTH2_HOST/oauth/token
 ENV SPRING_PROFILES_ACTIVE basic,mariadb4j,embedded-elasticsearch,embedded-oauth2,security,conductor
 ENV USER_TIMEZONE IST
 ENV CONDUCTOR_VERSION 2.31.0
@@ -55,11 +53,8 @@ USER root
 RUN apt-get -y -qq update --ignore-missing --fix-missing \
   && apt-get -y -qq install libaio1 libaio-dev libncurses5 openssl sudo
 
-# Creating base directory
-RUN mkdir /appln
-
 # Creating necessary directory structures to host the platform
-RUN mkdir /appln/bin /appln/bin/conductor /appln/bin/elasticsearch /appln/data /appln/data/mariadb4j /appln/data/elasticsearch /appln/scripts /appln/logs /appln/tmp /appln/tmp/conductor-boot
+RUN mkdir /appln /appln/bin /appln/bin/conductor /appln/bin/elasticsearch /appln/data /appln/data/mariadb4j /appln/data/elasticsearch /appln/scripts /appln/logs /appln/tmp /appln/tmp/conductor-boot
 
 # Creating a dedicated user conductor
 RUN groupadd -g 999 conductor \
@@ -92,11 +87,9 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -Dworkflow.elasticsearch.version=\$WORKFLOW_ELASTICSEARCH_VERSION \
   -DADFS_CLIENT_ID=\$ADFS_CLIENT_ID \
   -DADFS_RESOURCE=\$ADFS_RESOURCE \
-  -DADFS_HOST=\$ADFS_HOST \
   -DADFS_USER_AUTHORIZATION_URL=\$ADFS_USER_AUTHORIZATION_URL \
   -DADFS_ACCESS_TOKEN_URL=\$ADFS_ACCESS_TOKEN_URL \
   -DADFS_USER_INFO_URL=\$ADFS_USER_INFO_URL \
-  -DOAUTH2_HOST=\$OAUTH2_HOST \
   -DOAUTH2_USER_INFO_URL=\$OAUTH2_USER_INFO_URL \
   -DMYSQL_DATABASE=\$MYSQL_DATABASE \
   -DMYSQL_USER=\$MYSQL_USER \
