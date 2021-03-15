@@ -357,8 +357,9 @@ Verify the container status with "docker ps"
 Open browser (preferably Google Chrome) and verify all the UI URLs are up and running.
 
   a.	http://localhost:9990 : Keycloak Base URL
-    i.	Click on the option Administration Console / Admin Console
-    ii.	Use the username and password from the YML file : default admin/Admin@1234
+  
+   i.	Click on the option Administration Console / Admin Console
+   ii.	Use the username and password from the YML file : default admin/Admin@1234
     
   ![image](https://user-images.githubusercontent.com/24351133/111174877-d566b500-85cd-11eb-9d0a-0ac96c6f63f9.png)
 
