@@ -18,6 +18,7 @@ Before starting, for details on Netflix Conductor, refer to <a href="http://netf
       
       • Embedded MariaDB4j is supported, which is persistent and data is not lost, thus eliminating the need for external
 
+For a production ready, pre-configured / packaged environment visit https://maheshyaddanapudi.github.io/conductor-boot/
 
 ## Overview
 
