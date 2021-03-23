@@ -225,7 +225,7 @@ Here is the docker-compose.yml file
             MYSQL_USER: conductor
             MYSQL_PASSWORD: Conductor@1234
             ELASTICSEARCH_URL: http://elasticsearch:9200
-            OAUTH2_USER_INFO_URL: http://keycloak:9990/auth/realms/conductor/protocol/openid-connect/userinfo
+            OAUTH2_USER_INFO_URL: http://keycloak:8080/auth/realms/conductor/protocol/openid-connect/userinfo
             SPRING_PROFILES_ACTIVE: basic,mysql,external-elasticsearch,external-oauth2,security,conductor
           healthcheck:
             test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8080/api/health"]
