@@ -109,6 +109,9 @@ RUN sudo chown -R conductor:conductor /appln/scripts /appln/bin \
 # Exposing the necessary ports
 EXPOSE 8080
 
+HEALTHCHECK --interval=60s --timeout=30s --retries=10 \
+  CMD curl -I -XGET http://localhost:8080/api/health || exit 1
+
 # Enabling the startup
 CMD ["/appln/scripts/startup.sh"]
 ENTRYPOINT ["/bin/bash"]
