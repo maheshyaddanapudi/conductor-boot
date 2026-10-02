@@ -550,3 +550,7 @@ Certificate for OAUTH2
 			    User Services
 			
 ##### NOTE: All the User Services will be OPEN for Conductor Roles as well.
+
+## License
+
+Apache License 2.0 (as declared in `pom.xml`) — see [LICENSE](LICENSE).
