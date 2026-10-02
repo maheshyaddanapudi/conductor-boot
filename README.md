@@ -6,7 +6,7 @@
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=maheshyaddanapudi_conductor-boot)
 
-Before starting, for details on Netflix Conductor, refer to <a href="http://netflix.github.io/conductor/" target="_blank">Conductor Documentation</a>
+Before starting, for details on Netflix Conductor, refer to <a href="https://conductor-oss.github.io/conductor/" target="_blank">Conductor Documentation</a> (Netflix Conductor is now maintained as <a href="https://github.com/conductor-oss/conductor" target="_blank">Conductor OSS</a>)
 
 ##### The README covers on the operational part of Conductor Boot. For more details on the code level walkthrough / developer point of view, please refer to <a href="https://zzzmahesh.medium.com/netflix-conductor-spring-boot-wrapper-45960a3e36f6" target="_blank">NETFLIX CONDUCTOR — SPRING BOOT WRAPPER</a>
 
@@ -65,9 +65,9 @@ To avoid the pain points of
 
             • Elasticsearch
 
-## Code coverage
+## Code scanning
 
-CodeQL: ![CodeQL](https://github.com/maheshyaddanapudi/conductor-boot/workflows/CodeQL/badge.svg?branch=main)
+CodeQL: ![CodeQL](https://github.com/maheshyaddanapudi/conductor-boot/actions/workflows/codeql-analysis.yml/badge.svg)
 
 ## Code quality
 
@@ -86,7 +86,6 @@ SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/meas
 | ------- | ------------------ |
 | Circle CI   | [![maheshyaddanapudi](https://circleci.com/gh/maheshyaddanapudi/conductor-boot.svg?style=shield)](https://circleci.com/gh/maheshyaddanapudi/conductor-boot) |
 | Java CI   | ![Java CI with Maven](https://github.com/maheshyaddanapudi/conductor-boot/workflows/Java%20CI%20with%20Maven/badge.svg?branch=main) |
-| Travis CI   | [![Build Status](https://travis-ci.com/maheshyaddanapudi/conductor-boot.svg?branch=main)](https://travis-ci.com/maheshyaddanapudi/conductor-boot) |
 
 ## Containerization CI (Continuous Integration)
 
@@ -551,3 +550,7 @@ Certificate for OAUTH2
 			    User Services
 			
 ##### NOTE: All the User Services will be OPEN for Conductor Roles as well.
+
+## License
+
+Apache License 2.0 (as declared in `pom.xml`) — see [LICENSE](LICENSE).
